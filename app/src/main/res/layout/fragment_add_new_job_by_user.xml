@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_Add_new"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add New"
+                android:textSize="20dp"
+                android:textColor="@color/colorWhite"/>
+
+            <ImageView
+                android:id="@+id/img_new_job_to_profille"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_person_white"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="30dp"/>
+        </RelativeLayout>
+
+
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="16dp">
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kategori"/>
+            <!--<EditText-->
+                <!--android:id="@+id/et_kategori_new"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:hint="Id Kategori"-->
+                <!--android:textSize="17sp"-->
+                <!--android:textColor="#b7b9bd"-->
+                <!--android:textColorHint="#b7b9bd"-->
+                <!--android:inputType="text"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--/>-->
+            <Spinner
+                android:id="@+id/sp_kategori"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:spinnerMode="dropdown"></Spinner>
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pekerjaan"/>
+            <EditText
+                android:id="@+id/et_pekerjaan_new"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Pekerjaan"
+                android:textSize="17sp"
+                android:textColor="#b7b9bd"
+                android:textColorHint="#b7b9bd"
+                android:inputType="text"
+                android:layout_alignParentRight="true"
+                />
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Estimasi Gaji"/>
+            <EditText
+                android:id="@+id/et_estimasi_gaji_new"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Estimasi Gaji"
+                android:textSize="17sp"
+                android:textColor="#b7b9bd"
+                android:textColorHint="#b7b9bd"
+                android:inputType="text"
+                android:layout_alignParentRight="true"
+                />
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pengalaman Kerja"/>
+            <EditText
+                android:id="@+id/et_pengalaman_kerja_new"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:hint="Pengalaman Kerja"
+                android:inputType="text"
+                android:textColor="#b7b9bd"
+                android:textColorHint="#b7b9bd"
+                android:textSize="17sp"
+                />
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Usia"/>
+            <EditText
+                android:id="@+id/et_usia_new"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:hint="Usia"
+                android:inputType="text"
+                android:textColor="#b7b9bd"
+                android:textColorHint="#b7b9bd"
+                android:textSize="17sp"
+                />
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No Telp"/>
+            <EditText
+                android:id="@+id/et_no_telp_new"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:hint="No Telp"
+                android:inputType="text"
+                android:textColor="#b7b9bd"
+                android:textColorHint="#b7b9bd"
+                android:textSize="17sp"
+                />
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email Pekerjaan"/>
+            <EditText
+                android:id="@+id/et_email_new"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:hint="Email"
+                android:inputType="text"
+                android:textColor="#b7b9bd"
+                android:textColorHint="#b7b9bd"
+                android:textSize="17sp"
+                />
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status"/>
+            <!--<EditText-->
+                <!--android:id="@+id/et_status_new"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:hint="Status"-->
+                <!--android:inputType="text"-->
+                <!--android:textColor="#b7b9bd"-->
+                <!--android:textColorHint="#b7b9bd"-->
+                <!--android:textSize="17sp"-->
+                <!--/>-->
+            <Spinner
+                android:id="@+id/sp_status_new"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:spinnerMode="dropdown"
+                android:entries="@array/status_new"></Spinner>
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Alamat"/>
+            <EditText
+                android:id="@+id/et_alamat_new"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:hint="Alamat"
+                android:inputType="text"
+                android:textColor="#b7b9bd"
+                android:textColorHint="#b7b9bd"
+                android:textSize="17sp"
+                />
+
+            <!--<TextView-->
+                <!--android:layout_marginTop="20dp"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Kecamatan"/>-->
+            <!--<EditText-->
+                <!--android:id="@+id/et_kecamatan_new"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:hint="Id Kecamatan"-->
+                <!--android:inputType="text"-->
+                <!--android:textColor="#b7b9bd"-->
+                <!--android:textColorHint="#b7b9bd"-->
+                <!--android:textSize="17sp"-->
+                <!--/>-->
+
+            <Button
+                android:id="@+id/btn_save_new_job"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SAVE"
+                android:textSize="20dp"
+                android:background="@color/colorAccent"
+                android:textColor="@color/colorWhite"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"/>
+
+            <TextView
+                android:id="@+id/tv_error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>
