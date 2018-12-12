@@ -1,17 +1,14 @@
 package com.tr.nata.projectandroid;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.tr.nata.projectandroid.api.ApiClient;
 import com.tr.nata.projectandroid.fragment.FragmentHome;
-import com.tr.nata.projectandroid.fragment.FragmentNewJob;
 import com.tr.nata.projectandroid.fragment.FragmentFavorite;
 
 public class HomeActivity extends AppCompatActivity {
@@ -152,10 +149,7 @@ public class HomeActivity extends AppCompatActivity {
                             fragment = new FragmentHome();
 //                            getSupportFragmentManager().beginTransaction().replace(R.id.frag_layout,fragment).commit();
                             break;
-//                        case R.id.nav_list:
-//                            fragment=new FragmentNewJob();
-////                            getSupportFragmentManager().beginTransaction().replace(R.id.frag_layout,fragment).commit();
-//                            break;
+
                         case R.id.nav_favorite:
                             fragment=new FragmentFavorite();
 //                            Intent intent = new Intent(getApplicationContext(),TryPerofilleActivity.class);

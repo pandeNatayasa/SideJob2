@@ -56,10 +56,10 @@ public class TryPerofilleActivity extends AppCompatActivity {
         img_change_foto_profille=findViewById(R.id.img_change_fotoprofille);
         img_fotoProfille=findViewById(R.id.img_foto_profille_inProfille);
 
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbarid_profille);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbarid_profille);
+//        setSupportActionBar(toolbar);
+//        getSupportActionBar().setDisplayShowHomeEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         appBarLayout=findViewById(R.id.appbarLayout_id);
         img_logout=findViewById(R.id.img_logout);
@@ -161,15 +161,15 @@ public class TryPerofilleActivity extends AppCompatActivity {
 //
 //    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id=item.getItemId();
-
-        if (id==android.R.id.home){
-            this.finish();
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        int id=item.getItemId();
+//
+//        if (id==android.R.id.home){
+//            this.finish();
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
     /**
      * Select picture, from album.

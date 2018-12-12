@@ -179,54 +179,54 @@ public class AdminListFreeLanceActivity extends AppCompatActivity {
         recyclerView.setAdapter(dataJasaAdapter);
     }
 
-    private void callApiAddNew(){
-        SharedPreferences sharedPref = getSharedPreferences("login", Context.MODE_PRIVATE);
-
-        int id_user = sharedPref.getInt("id_user_login",0);
-        int id_kategori = Integer.parseInt(String.valueOf(et_id_kategori.getText()));
-        String pekerjaan = et_pekerjaan.getText().toString();
-        int estimasi_gaji = Integer.parseInt(String.valueOf(et_estimasi_gaji.getText()));
-        String pengalaman_kerja = et_pengalaman_kerja.getText().toString();
-        int usia= Integer.parseInt(String.valueOf(et_usia.getText()));
-        String no_telp = et_no_telp.getText().toString();
-        String email = et_email.getText().toString();
-        String status = et_status.getText().toString();
-        String alamat = et_alamat.getText().toString();
-
-//        Toast.makeText(AddJobActivity.this,"Haiiii",Toast.LENGTH_SHORT).show();
-//        Toast.makeText(AddJobActivity.this,"id_kategori "+id_kategori,Toast.LENGTH_SHORT).show();
-//        Toast.makeText(AddJobActivity.this,"id_user"+id_user,Toast.LENGTH_SHORT).show();
-//        Toast.makeText(AddJobActivity.this,"pekerjaan :"+pekerjaan,Toast.LENGTH_SHORT).show();
-//        Toast.makeText(AddJobActivity.this,"estimasi gaji :"+estimasi_gaji,Toast.LENGTH_SHORT).show();
-//        Toast.makeText(AddJobActivity.this,"pengalaman kerja :"+pengalaman_kerja,Toast.LENGTH_SHORT).show();
-//        Toast.makeText(AddJobActivity.this,"no telp :"+no_telp,Toast.LENGTH_SHORT).show();
-//        Toast.makeText(AddJobActivity.this,"email :"+email,Toast.LENGTH_SHORT).show();
-//        Toast.makeText(AddJobActivity.this,"status :"+status,Toast.LENGTH_SHORT).show();
-//        Toast.makeText(AddJobActivity.this,"alamat :"+alamat,Toast.LENGTH_SHORT).show();
-//        Toast.makeText(AddJobActivity.this,"id kecamatan :"+id_kecamatan,Toast.LENGTH_SHORT).show();
-//        Toast.makeText(AddJobActivity.this,"usia :"+usia,Toast.LENGTH_SHORT).show();
-        service.newDataJasaUser(id_kategori,id_user,pekerjaan,estimasi_gaji,pengalaman_kerja,usia,no_telp,email,status,alamat,user_token)
-                .enqueue(new Callback<com.tr.nata.projectandroid.model.Response>() {
-                    @Override
-                    public void onResponse(Call<com.tr.nata.projectandroid.model.Response> call, retrofit2.Response<com.tr.nata.projectandroid.model.Response> response) {
-                        if (response.isSuccessful()){
-                            Toast.makeText(getApplicationContext(),"Data Jasa Berhasil Disimpan",Toast.LENGTH_SHORT).show();
-                            callApi();
-//                            Intent intent = new Intent(AddJobActivity.this,HomeActivity.class);
-//                            startActivity(intent);
-//                            Fragment fragment = new FragmentListFrelance();
-//                            getSupportFragmentManager().beginTransaction().add(R.id.frag_layout,fragment).addToBackStack(FragmentListFrelance.class.getSimpleName()).commit();
-                        }else {
-                            Toast.makeText(getApplicationContext(),"Data Jasa Gagal Disimpan",Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<com.tr.nata.projectandroid.model.Response> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(),"Error : "+t,Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
+//    private void callApiAddNew(){
+//        SharedPreferences sharedPref = getSharedPreferences("login", Context.MODE_PRIVATE);
+//
+//        int id_user = sharedPref.getInt("id_user_login",0);
+//        int id_kategori = Integer.parseInt(String.valueOf(et_id_kategori.getText()));
+//        String pekerjaan = et_pekerjaan.getText().toString();
+//        int estimasi_gaji = Integer.parseInt(String.valueOf(et_estimasi_gaji.getText()));
+//        String pengalaman_kerja = et_pengalaman_kerja.getText().toString();
+//        int usia= Integer.parseInt(String.valueOf(et_usia.getText()));
+//        String no_telp = et_no_telp.getText().toString();
+//        String email = et_email.getText().toString();
+//        String status = et_status.getText().toString();
+//        String alamat = et_alamat.getText().toString();
+//
+////        Toast.makeText(AddJobActivity.this,"Haiiii",Toast.LENGTH_SHORT).show();
+////        Toast.makeText(AddJobActivity.this,"id_kategori "+id_kategori,Toast.LENGTH_SHORT).show();
+////        Toast.makeText(AddJobActivity.this,"id_user"+id_user,Toast.LENGTH_SHORT).show();
+////        Toast.makeText(AddJobActivity.this,"pekerjaan :"+pekerjaan,Toast.LENGTH_SHORT).show();
+////        Toast.makeText(AddJobActivity.this,"estimasi gaji :"+estimasi_gaji,Toast.LENGTH_SHORT).show();
+////        Toast.makeText(AddJobActivity.this,"pengalaman kerja :"+pengalaman_kerja,Toast.LENGTH_SHORT).show();
+////        Toast.makeText(AddJobActivity.this,"no telp :"+no_telp,Toast.LENGTH_SHORT).show();
+////        Toast.makeText(AddJobActivity.this,"email :"+email,Toast.LENGTH_SHORT).show();
+////        Toast.makeText(AddJobActivity.this,"status :"+status,Toast.LENGTH_SHORT).show();
+////        Toast.makeText(AddJobActivity.this,"alamat :"+alamat,Toast.LENGTH_SHORT).show();
+////        Toast.makeText(AddJobActivity.this,"id kecamatan :"+id_kecamatan,Toast.LENGTH_SHORT).show();
+////        Toast.makeText(AddJobActivity.this,"usia :"+usia,Toast.LENGTH_SHORT).show();
+//        service.newDataJasaUser(id_kategori,id_user,pekerjaan,estimasi_gaji,pengalaman_kerja,usia,no_telp,email,status,alamat,user_token)
+//                .enqueue(new Callback<com.tr.nata.projectandroid.model.Response>() {
+//                    @Override
+//                    public void onResponse(Call<com.tr.nata.projectandroid.model.Response> call, retrofit2.Response<com.tr.nata.projectandroid.model.Response> response) {
+//                        if (response.isSuccessful()){
+//                            Toast.makeText(getApplicationContext(),"Data Jasa Berhasil Disimpan",Toast.LENGTH_SHORT).show();
+//                            callApi();
+////                            Intent intent = new Intent(AddJobActivity.this,HomeActivity.class);
+////                            startActivity(intent);
+////                            Fragment fragment = new FragmentListFrelance();
+////                            getSupportFragmentManager().beginTransaction().add(R.id.frag_layout,fragment).addToBackStack(FragmentListFrelance.class.getSimpleName()).commit();
+//                        }else {
+//                            Toast.makeText(getApplicationContext(),"Data Jasa Gagal Disimpan",Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<com.tr.nata.projectandroid.model.Response> call, Throwable t) {
+//                        Toast.makeText(getApplicationContext(),"Error : "+t,Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();

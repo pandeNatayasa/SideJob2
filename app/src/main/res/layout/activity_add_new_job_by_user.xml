@@ -86,12 +86,12 @@
                 android:layout_marginTop="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Estimasi Gaji"/>
+                android:text="Gaji Min"/>
             <EditText
-                android:id="@+id/et_estimasi_gaji_new"
+                android:id="@+id/et_estimasi_gaji_min_new"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Estimasi Gaji"
+                android:hint="Gaji Min"
                 android:textSize="17sp"
                 android:textColor="#b7b9bd"
                 android:textColorHint="#b7b9bd"
@@ -103,13 +103,30 @@
                 android:layout_marginTop="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pengalaman Kerja"/>
+                android:text="Gaji Max"/>
             <EditText
-                android:id="@+id/et_pengalaman_kerja_new"
+                android:id="@+id/et_estimasi_gaji_max_new"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Gaji Max"
+                android:textSize="17sp"
+                android:textColor="#b7b9bd"
+                android:textColorHint="#b7b9bd"
+                android:inputType="text"
+                android:layout_alignParentRight="true"
+                />
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Detail Pekerjaan"/>
+            <EditText
+                android:id="@+id/et_detail_pekerjaan_new"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:hint="Pengalaman Kerja"
+                android:hint="Detail Pekerjaan (with enter)"
                 android:inputType="text"
                 android:textColor="#b7b9bd"
                 android:textColorHint="#b7b9bd"
@@ -120,13 +137,13 @@
                 android:layout_marginTop="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Usia"/>
+                android:text="Syarat Pekerjaan"/>
             <EditText
-                android:id="@+id/et_usia_new"
+                android:id="@+id/et_syarat_pekerjaan_new"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:hint="Usia"
+                android:hint="Syarat Pekerjaan"
                 android:inputType="text"
                 android:textColor="#b7b9bd"
                 android:textColorHint="#b7b9bd"
@@ -137,92 +154,19 @@
                 android:layout_marginTop="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="No Telp"/>
+                android:text="Syarat CV"/>
             <EditText
-                android:id="@+id/et_no_telp_new"
+                android:id="@+id/et_syarat_cv_new"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:hint="No Telp"
+                android:hint="Syarat Cv"
                 android:inputType="text"
                 android:textColor="#b7b9bd"
                 android:textColorHint="#b7b9bd"
                 android:textSize="17sp"
                 />
 
-            <TextView
-                android:layout_marginTop="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Email Pekerjaan"/>
-            <EditText
-                android:id="@+id/et_email_new"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:hint="Email"
-                android:inputType="text"
-                android:textColor="#b7b9bd"
-                android:textColorHint="#b7b9bd"
-                android:textSize="17sp"
-                />
-
-            <TextView
-                android:layout_marginTop="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Status"/>
-            <!--<EditText-->
-                <!--android:id="@+id/et_status_new"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_alignParentRight="true"-->
-                <!--android:hint="Status"-->
-                <!--android:inputType="text"-->
-                <!--android:textColor="#b7b9bd"-->
-                <!--android:textColorHint="#b7b9bd"-->
-                <!--android:textSize="17sp"-->
-                <!--/>-->
-            <Spinner
-                android:id="@+id/sp_status_new"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:spinnerMode="dropdown"
-                android:entries="@array/status_new"></Spinner>
-
-            <TextView
-                android:layout_marginTop="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Alamat"/>
-            <EditText
-                android:id="@+id/et_alamat_new"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:hint="Alamat"
-                android:inputType="text"
-                android:textColor="#b7b9bd"
-                android:textColorHint="#b7b9bd"
-                android:textSize="17sp"
-                />
-
-            <!--<TextView-->
-                <!--android:layout_marginTop="20dp"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="Kecamatan"/>-->
-            <!--<EditText-->
-                <!--android:id="@+id/et_kecamatan_new"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_alignParentRight="true"-->
-                <!--android:hint="Id Kecamatan"-->
-                <!--android:inputType="text"-->
-                <!--android:textColor="#b7b9bd"-->
-                <!--android:textColorHint="#b7b9bd"-->
-                <!--android:textSize="17sp"-->
-                <!--/>-->
 
             <Button
                 android:id="@+id/btn_save_new_job"

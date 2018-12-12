@@ -78,15 +78,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:text="Jenis Kelamin" />
+                android:text="Alamat Perusahaan" />
 
             <TextView
-                android:id="@+id/tv_jk_profille"
+                android:id="@+id/tv_alamat_perusahaan"
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:text=": JK Anda" />
+                android:text=": Alamat" />
 
         </LinearLayout>
 
@@ -126,7 +126,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:text="Tanggal Lahir" />
+                android:text="Tanggal Berdiri" />
 
             <TextView
                 android:id="@+id/tv_tanggal_lahir_profille"

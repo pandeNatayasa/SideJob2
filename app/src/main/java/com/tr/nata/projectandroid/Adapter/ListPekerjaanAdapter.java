@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.tr.nata.projectandroid.DetailPekerjaanActivity;
 import com.tr.nata.projectandroid.DetailUserActivity;
 import com.tr.nata.projectandroid.R;
 import com.tr.nata.projectandroid.model.DataJasaItem;
@@ -26,7 +27,7 @@ public class ListPekerjaanAdapter extends RecyclerView.Adapter<ListPekerjaanAdap
     private List<DataUserItem> dataUserItems;
     private List<ResponsePekerjaan> responsePekerjaans;
     private Context context;
-    private CardView listDataJasa;
+    private CardView listDataPekerjaan;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView nama_perusahaan,gaji_min,gaji_max, pekerjaan;
@@ -40,6 +41,7 @@ public class ListPekerjaanAdapter extends RecyclerView.Adapter<ListPekerjaanAdap
             gaji_min=itemView.findViewById(R.id.tv_gaji_min);
             gaji_max=itemView.findViewById(R.id.tv_gaji_max);
             pekerjaan=itemView.findViewById(R.id.tv_pekerjaan);
+            listDataPekerjaan=itemView.findViewById(R.id.cardView_list_pekerjaan);
         }
     }
     public ListPekerjaanAdapter(List<ResponsePekerjaan> responsePekerjaans, Context context){
@@ -81,51 +83,38 @@ public class ListPekerjaanAdapter extends RecyclerView.Adapter<ListPekerjaanAdap
         holder.gaji_max.setText(String.valueOf(responsePekerjaan.getGajiMax()));
 ////        holder. .setText(responsePekerjaan.getNamaPerusahaan());
 
-//        listDataJasa.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-////                DataJasaItem dataJasaItem = (DataJasaItem) itemView.getTag();
-////                DataUserItem dataUserItem = (DataUserItem) itemView.getTag();
-//
-//                int id_data_jasa = dataJasa.getId();
-//                String nama = dataUser.getName();
-////                    String nama ="aa";
-//                String jasa = dataJasa.getPekerjaan();
-//                String gaji = dataJasa.getEstimasi_gaji().toString();
-//                String usia = String.valueOf(dataJasa.getUsia());
-//                String tanggal_lahir = dataUser.getTanggalLahir();
-////                String tanggal_lahir = "aaa";
-//                String no_telp = String.valueOf(dataJasa.getNoTelp()) ;
-//                String email = dataJasa.getEmail();
-//                String status = dataJasa.getStatus();
-//                String pendidikan = dataJasa.getPengalaman_kerja();
-//                String alamat = dataJasa.getAlamat();
-//
-////                Toast.makeText(holder.itemView.getContext(),"no_telp : "+no_telp,Toast.LENGTH_SHORT).show();
-//
-//                Intent intent = new Intent(context,DetailUserActivity.class);
-////                    String namaKategori = dataKategoriItem.getKategori();
-////                    int id = dataKategoriItem.getId();
-//                Bundle bundle = new Bundle();
-//                bundle.putInt("id_data_jasa",id_data_jasa);
-//                bundle.putString("nama", nama);
-//                bundle.putString("jasa",jasa);
-//                bundle.putString("gaji",gaji);
-//                bundle.putString("usia",usia);
-//                bundle.putString("tanggal_lahir",tanggal_lahir);
-//                bundle.putString("no_telp",no_telp);
-//                bundle.putString("email",email);
-//                bundle.putString("status",status);
-//                bundle.putString("pendidikan",pendidikan);
-//                bundle.putString("alamat",alamat);
-////                    bundle.putInt("id_kategori",id);
-//
-//                intent.putExtras(bundle);
-//                context.startActivity(intent);
-//
-//            }
-//        });
+        listDataPekerjaan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+//                DataJasaItem dataJasaItem = (DataJasaItem) itemView.getTag();
+//                DataUserItem dataUserItem = (DataUserItem) itemView.getTag();
+
+                int id_data_jasa = responsePekerjaan.getId();
+                String namapekerjaan = responsePekerjaan.getPekerjaan();
+                String gaji_min = String.valueOf(responsePekerjaan.getGajiMin());
+                String gaji_max = String.valueOf(responsePekerjaan.getGajiMax());
+                String nama_perusahaan = responsePekerjaan.getNamaPerusahaan();
+                String detail_pekerjaan = responsePekerjaan.getDetailPekerjaan();
+                String syarat_pekerjaan = responsePekerjaan.getSyaratPekerjaan();
+
+
+                Intent intent = new Intent(context,DetailPekerjaanActivity.class);
+
+                Bundle bundle = new Bundle();
+                bundle.putInt("id_pekerjaan",id_data_jasa);
+                bundle.putString("nama_pekerjaan", namapekerjaan);
+                bundle.putString("gaji_min",gaji_min);
+                bundle.putString("gaji_max",gaji_max);
+                bundle.putString("nama_perusahaan",nama_perusahaan);
+                bundle.putString("detail_pekerjaan",detail_pekerjaan);
+                bundle.putString("syarat_pekerjaan",syarat_pekerjaan);
+
+                intent.putExtras(bundle);
+                context.startActivity(intent);
+
+            }
+        });
 
     }
 

@@ -39,6 +39,11 @@
         <activity android:name=".DetailUserInAdminActivity"></activity>
         <activity android:name=".EditProfilleActivity"></activity>
         <activity android:name=".profilleUserActivity"></activity>
+        <activity android:name=".DetailPekerjaanActivity"></activity>
+        <activity android:name=".DetailPekerjaanInProfillePerusahaanActivity"></activity>
+        <activity android:name=".AddNewJobByUserActivity"></activity>
+        <activity android:name=".EditJobByUserActivity"></activity>
+
 
         <service android:name=".Firebase.MessagingService"
             android:stopWithTask="false">

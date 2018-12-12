@@ -20,7 +20,7 @@ import com.tr.nata.projectandroid.R;
 
 public class FragmentProfilleDetail extends Fragment {
 
-    TextView tv_name, tv_email, tv_jenis_kelamin, tv_notelp, tv_tanggal_lahir;
+    TextView tv_name, tv_email, tv_alamat, tv_notelp, tv_tanggal_lahir;
     FloatingActionButton fab_edit_profiile;
 
     @Nullable
@@ -30,7 +30,7 @@ public class FragmentProfilleDetail extends Fragment {
 
         tv_name=view.findViewById(R.id.tv_name_profille);
         tv_email=view.findViewById(R.id.tv_email_profille);
-        tv_jenis_kelamin=view.findViewById(R.id.tv_jk_profille);
+        tv_alamat=view.findViewById(R.id.tv_alamat_perusahaan);
         tv_notelp=view.findViewById(R.id.tv_notelp_profille);
         tv_tanggal_lahir=view.findViewById(R.id.tv_tanggal_lahir_profille);
         fab_edit_profiile=view.findViewById(R.id.fab_edit_profille);
@@ -41,10 +41,11 @@ public class FragmentProfilleDetail extends Fragment {
         String jk_user_login = sharedPref.getString("jk_user_login","");
         String no_telp_user_login = sharedPref.getString("no_telp_user_login","");
         String tanggal_lahir_user_login = sharedPref.getString("tanggal_lahir_user_login","");
+        String alamat = sharedPref.getString("user_alamat","");
 
         tv_name.setText(nama_user_login);
         tv_email.setText(email_user_login);
-        tv_jenis_kelamin.setText(jk_user_login);
+        tv_alamat.setText(alamat);
         tv_notelp.setText(no_telp_user_login);
         tv_tanggal_lahir.setText(tanggal_lahir_user_login);
 

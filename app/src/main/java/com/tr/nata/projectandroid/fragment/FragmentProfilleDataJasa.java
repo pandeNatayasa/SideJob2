@@ -1,6 +1,7 @@
 package com.tr.nata.projectandroid.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,12 +20,15 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.tr.nata.projectandroid.Adapter.ListDataJasaInUserAdapter;
+
+import com.tr.nata.projectandroid.AddNewJobByUserActivity;
 import com.tr.nata.projectandroid.Database.DatabaseHelper;
 import com.tr.nata.projectandroid.R;
 import com.tr.nata.projectandroid.api.ApiClient;
 import com.tr.nata.projectandroid.api.ApiService;
 import com.tr.nata.projectandroid.model.DataJasaItem;
 import com.tr.nata.projectandroid.model.ResponseDataJasaUser;
+import com.tr.nata.projectandroid.model.ResponsePekerjaan;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,11 +41,13 @@ public class FragmentProfilleDataJasa extends Fragment {
 
     private List<ResponseDataJasaUser> dataJasaUsers = new ArrayList<>();
     private List<DataJasaItem> dataJasaItems = new ArrayList<>();
+    private List<ResponsePekerjaan> responsePekerjaans= new ArrayList<>();
     private RecyclerView recyclerView;
     private ListDataJasaInUserAdapter adapter;
     ApiService service,service_add_new;
     String user_token;
     DatabaseHelper mydb;
+    FloatingActionButton fab_add_new_job;
 
     @Nullable
     @Override
@@ -69,6 +76,15 @@ public class FragmentProfilleDataJasa extends Fragment {
         recyclerView=view.findViewById(R.id.recyclerview_data_jasa_inProfille);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+        fab_add_new_job=view.findViewById(R.id.fab_add_data_pekerjaan);
+
+        fab_add_new_job.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity().getApplicationContext(),AddNewJobByUserActivity.class);
+                startActivity(intent);
+            }
+        });
 
         SharedPreferences sharedPref = getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
         user_token = sharedPref.getString("user_token","");
@@ -76,11 +92,11 @@ public class FragmentProfilleDataJasa extends Fragment {
         mydb = new DatabaseHelper(this.getActivity());
 
         if (isConnected()){
-            callApiLokal();
+//            callApiLokal();
             callApi();
         }else {
             Toast.makeText(getActivity().getApplicationContext(),"Anda Sedang Offline",Toast.LENGTH_SHORT).show();
-            callApiLokal();
+//            callApiLokal();
         }
 
         return view;
@@ -92,18 +108,19 @@ public class FragmentProfilleDataJasa extends Fragment {
         Integer id_user_login = sharedPref.getInt("id_user_login", 0);
 
         service.showDataJasaUser(id_user_login,user_token)
-                .enqueue(new Callback<List<ResponseDataJasaUser>>() {
+                .enqueue(new Callback<List<ResponsePekerjaan>>() {
                     @Override
-                    public void onResponse(Call<List<ResponseDataJasaUser>> call, Response<List<ResponseDataJasaUser>> response) {
+                    public void onResponse(Call<List<ResponsePekerjaan>> call, Response<List<ResponsePekerjaan>> response) {
                         if (response.isSuccessful()) {
 
-                            mydb.deleteJasainUser(id_user_login);
-                            dataJasaUsers = response.body();
-                            for (ResponseDataJasaUser dataJasaUser:dataJasaUsers){
-                                mydb.insertDataJasa(dataJasaUser.getId(),dataJasaUser.getIdKategori(),dataJasaUser.getIdUser(),
-                                        dataJasaUser.getPekerjaan(),dataJasaUser.getUsia(),dataJasaUser.getNoTelp(),dataJasaUser.getEmail(),
-                                        dataJasaUser.getStatus(),dataJasaUser.getStatusValidasi(),dataJasaUser.getAlamat(),dataJasaUser.getPengalamanKerja(),dataJasaUser.getEstimasiGaji());
-                            }
+//                            mydb.deleteJasainUser(id_user_login);
+//                            dataJasaUsers = response.body();
+                            responsePekerjaans=response.body();
+//                            for (ResponseDataJasaUser dataJasaUser:dataJasaUsers){
+//                                mydb.insertDataJasa(dataJasaUser.getId(),dataJasaUser.getIdKategori(),dataJasaUser.getIdUser(),
+//                                        dataJasaUser.getPekerjaan(),dataJasaUser.getUsia(),dataJasaUser.getNoTelp(),dataJasaUser.getEmail(),
+//                                        dataJasaUser.getStatus(),dataJasaUser.getStatusValidasi(),dataJasaUser.getAlamat(),dataJasaUser.getPengalamanKerja(),dataJasaUser.getEstimasiGaji());
+//                            }
                             setAdapter();
 
                         } else {
@@ -112,7 +129,7 @@ public class FragmentProfilleDataJasa extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<List<ResponseDataJasaUser>> call, Throwable t) {
+                    public void onFailure(Call<List<ResponsePekerjaan>> call, Throwable t) {
                         Toast.makeText(getActivity().getApplicationContext(), "gagal koneksi" + t, Toast.LENGTH_SHORT).show();
 
                     }
@@ -127,7 +144,7 @@ public class FragmentProfilleDataJasa extends Fragment {
     }
 
     private void setAdapter(){
-        adapter=new ListDataJasaInUserAdapter(getActivity(),dataJasaUsers);
+        adapter=new ListDataJasaInUserAdapter(getActivity(),responsePekerjaans);
         recyclerView.setAdapter(adapter);
     }
 
