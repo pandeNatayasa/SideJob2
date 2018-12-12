@@ -152,10 +152,10 @@ public class HomeActivity extends AppCompatActivity {
                             fragment = new FragmentHome();
 //                            getSupportFragmentManager().beginTransaction().replace(R.id.frag_layout,fragment).commit();
                             break;
-                        case R.id.nav_list:
-                            fragment=new FragmentNewJob();
-//                            getSupportFragmentManager().beginTransaction().replace(R.id.frag_layout,fragment).commit();
-                            break;
+//                        case R.id.nav_list:
+//                            fragment=new FragmentNewJob();
+////                            getSupportFragmentManager().beginTransaction().replace(R.id.frag_layout,fragment).commit();
+//                            break;
                         case R.id.nav_favorite:
                             fragment=new FragmentFavorite();
 //                            Intent intent = new Intent(getApplicationContext(),TryPerofilleActivity.class);
