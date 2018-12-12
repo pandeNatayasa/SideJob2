@@ -20,13 +20,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
 
-import com.tr.nata.projectandroid.Adapter.listUserAdapter;
+import com.tr.nata.projectandroid.Adapter.ListPekerjaanAdapter;
+//import com.tr.nata.projectandroid.Adapter.listUserAdapter;
 import com.tr.nata.projectandroid.Database.DatabaseHelper;
 import com.tr.nata.projectandroid.api.ApiClient;
 import com.tr.nata.projectandroid.api.ApiService;
 import com.tr.nata.projectandroid.model.DataJasaItem;
 import com.tr.nata.projectandroid.model.DataUserItem;
 import com.tr.nata.projectandroid.model.ResponseDataJasa;
+import com.tr.nata.projectandroid.model.ResponsePekerjaan;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +41,8 @@ public class SubHomeActivity extends AppCompatActivity {
 
     public TextView tv_pesan;
     private RecyclerView recyclerView;
-    private listUserAdapter listUserAdapter;
+//    private listUserAdapter listUserAdapter;
+    private ListPekerjaanAdapter listPekerjaanAdapter;
     private Bundle bundle;
     private Button btn_view_jasa;
     ImageView img_subHome_to_profille;
@@ -47,6 +50,7 @@ public class SubHomeActivity extends AppCompatActivity {
 
     private List<DataJasaItem> dataJasaItems = new ArrayList<>();
     private List<DataUserItem> dataUserItems=new ArrayList<>();
+    private List<ResponsePekerjaan> responsePekerjaans = new ArrayList<>();
 
     ApiService service;
     DatabaseHelper myDb;
@@ -104,51 +108,51 @@ public class SubHomeActivity extends AppCompatActivity {
         img_subHome_to_profille.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),TryPerofilleActivity.class);
+                Intent intent = new Intent(getApplicationContext(),profilleUserActivity.class);
                 intent.putExtra("Fragment_id",0);
                 startActivity(intent);
             }
         });
 
         callApi();
-        callDataLokal();
-        callJumlahDataJasaLokal();
+//        callDataLokal();
+//        callJumlahDataJasaLokal();
 
     }
 
     private void callApi(){
         int id_kategori = bundle.getInt("id_kategori");
         service.showDataJasaByKategori(id_kategori,user_token)
-                .enqueue(new Callback<ResponseDataJasa>() {
+                .enqueue(new Callback<List<ResponsePekerjaan>>() {
                     @Override
-                    public void onResponse(Call<ResponseDataJasa> call, Response<ResponseDataJasa> response) {
+                    public void onResponse(Call<List<ResponsePekerjaan>> call, Response<List<ResponsePekerjaan>> response) {
                         if (response.isSuccessful()) {
-
+                            responsePekerjaans=response.body();
 //                            Toast.makeText(getApplicationContext(), "success beb", Toast.LENGTH_SHORT).show();
-                            if (response.body().getDataJasa().size() > 0) {
+                            if (response.body().size() > 0) {
 //                                Toast.makeText(getApplicationContext(), "jumlah data jasa " + response.body().getDataJasa().size(), Toast.LENGTH_SHORT).show();
 //                                Toast.makeText(getApplicationContext(), "jumlah user " + response.body().getDataUser().size(), Toast.LENGTH_SHORT).show();
 
-                                myDb.deleteJasa(id_kategori);
-
-                                dataJasaItems = response.body().getDataJasa();
-                                dataUserItems = response.body().getDataUser();
-
-                                for (DataUserItem dataUserItem:dataUserItems){
-                                    myDb.deleteUser(dataUserItem.getId());
-                                }
-                                for (DataUserItem dataUserItem:dataUserItems){
-                                    myDb.insertDataUser(dataUserItem.getId(),dataUserItem.getName(),dataUserItem.getEmail(),dataUserItem.getJenisKelamin(),
-                                            dataUserItem.getNoTelp(),dataUserItem.getTanggalLahir());
-
-                                }
-//                                Toast.makeText(getApplicationContext(), "pengalaman kerja : " + dataJasaItems.get(0).getPengalaman_kerja(), Toast.LENGTH_SHORT).show();
-                                for (DataJasaItem dataJasaItem:dataJasaItems){
-                                    boolean hasil = myDb.insertDataJasa(dataJasaItem.getId(),dataJasaItem.getIdKategori(),dataJasaItem.getIdUser(),
-                                            dataJasaItem.getPekerjaan(),dataJasaItem.getUsia(),dataJasaItem.getNoTelp(),dataJasaItem.getEmail(),
-                                            dataJasaItem.getStatus(),dataJasaItem.getStatusValidasi(),dataJasaItem.getAlamat(),dataJasaItem.getPengalaman_kerja(),dataJasaItem.getEstimasi_gaji());
-//                                    Toast.makeText(getApplicationContext(), "hasil " + hasil, Toast.LENGTH_SHORT).show();
-                                }
+//                                myDb.deleteJasa(id_kategori);
+//
+//                                dataJasaItems = response.body().getDataJasa();
+//                                dataUserItems = response.body().getDataUser();
+//
+//                                for (DataUserItem dataUserItem:dataUserItems){
+//                                    myDb.deleteUser(dataUserItem.getId());
+//                                }
+//                                for (DataUserItem dataUserItem:dataUserItems){
+//                                    myDb.insertDataUser(dataUserItem.getId(),dataUserItem.getName(),dataUserItem.getEmail(),dataUserItem.getJenisKelamin(),
+//                                            dataUserItem.getNoTelp(),dataUserItem.getTanggalLahir());
+//
+//                                }
+////                                Toast.makeText(getApplicationContext(), "pengalaman kerja : " + dataJasaItems.get(0).getPengalaman_kerja(), Toast.LENGTH_SHORT).show();
+//                                for (DataJasaItem dataJasaItem:dataJasaItems){
+//                                    boolean hasil = myDb.insertDataJasa(dataJasaItem.getId(),dataJasaItem.getIdKategori(),dataJasaItem.getIdUser(),
+//                                            dataJasaItem.getPekerjaan(),dataJasaItem.getUsia(),dataJasaItem.getNoTelp(),dataJasaItem.getEmail(),
+//                                            dataJasaItem.getStatus(),dataJasaItem.getStatusValidasi(),dataJasaItem.getAlamat(),dataJasaItem.getPengalaman_kerja(),dataJasaItem.getEstimasi_gaji());
+////                                    Toast.makeText(getApplicationContext(), "hasil " + hasil, Toast.LENGTH_SHORT).show();
+//                                }
                                 setAdapter();
                             } else {
                                 tv_pesan.setText("Data kosong");
@@ -159,17 +163,17 @@ public class SubHomeActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<ResponseDataJasa> call, Throwable t) {
-//                        Toast.makeText(getApplicationContext(),"eror : "+t,Toast.LENGTH_SHORT).show();
+                    public void onFailure(Call<List<ResponsePekerjaan>> call, Throwable t) {
                         Toast.makeText(getApplicationContext(),"Anda Sedang Offline",Toast.LENGTH_SHORT).show();
-//                        tv_pesan.setText("error : "+t);
                     }
                 });
     }
     private void setAdapter(){
 //        listUserAdapter = new listUserAdapter(dataJasaItems,dataUserItems,this);
-        listUserAdapter = new listUserAdapter(dataJasaItems,dataUserItems,this);
-        recyclerView.setAdapter(listUserAdapter);
+//        listUserAdapter = new listUserAdapter(dataJasaItems,dataUserItems,this);
+//        recyclerView.setAdapter(listUserAdapter);
+        listPekerjaanAdapter  = new ListPekerjaanAdapter(responsePekerjaans,this);
+        recyclerView.setAdapter(listPekerjaanAdapter);
 
     }
     private void callJumlahDataJasaLokal(){

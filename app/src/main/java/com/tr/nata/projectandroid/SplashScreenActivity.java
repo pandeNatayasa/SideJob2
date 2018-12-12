@@ -31,10 +31,13 @@ public class SplashScreenActivity extends AppCompatActivity {
                 Toast.makeText(SplashScreenActivity.this,"status : "+status_login,Toast.LENGTH_SHORT).show();
 
                 if (!user_token.equals("kosong") && status_login.equals("true")){
-                    if (status_user.equals("1")){
+                    if (status_user.equals("0")){
                         Intent homeIntent = new Intent(SplashScreenActivity.this,HomeActivity.class);
                         startActivity(homeIntent);
-                    }else {
+                    }else if(status_user.equals("1")) {
+                        Intent homeIntent = new Intent(SplashScreenActivity.this,TryPerofilleActivity.class);
+                        startActivity(homeIntent);
+                    }else if(status_user.equals("2")) {
                         Intent homeIntent = new Intent(SplashScreenActivity.this,HomeAdminActivity.class);
                         startActivity(homeIntent);
                     }

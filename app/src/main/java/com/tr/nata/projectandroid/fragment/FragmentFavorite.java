@@ -33,6 +33,7 @@ import com.tr.nata.projectandroid.TryPerofilleActivity;
 import com.tr.nata.projectandroid.api.ApiClient;
 import com.tr.nata.projectandroid.api.ApiService;
 import com.tr.nata.projectandroid.model.ResponseFavorite;
+import com.tr.nata.projectandroid.profilleUserActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,7 +84,7 @@ public class FragmentFavorite extends Fragment {
         favorite_to_profille.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity().getApplicationContext(), TryPerofilleActivity.class);
+                Intent intent = new Intent(getActivity().getApplicationContext(),profilleUserActivity.class);
                 intent.putExtra("Fragment_id",0);
                 startActivity(intent);
 //                getActivity().finish();

@@ -102,14 +102,19 @@ public class LoginActivity extends AppCompatActivity {
                         String statusUser = response.body().getDataUser().getStatusUser();
 //                        Toast.makeText(getApplicationContext(),"nama : "+nama,Toast.LENGTH_SHORT).show();
 
-                        if (statusUser.equals("1")){
+                        if (statusUser.equals("0")){
 //                            Bundle bundle = new Bundle();
 //                            bundle.putString("namaUser", nama);
                             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
 //                            intent.putExtras(bundle);
                             startActivity(intent);
                             finish();
-                        }else {
+                        }else if(statusUser.equals("1")) {
+                            Toast.makeText(getApplicationContext(),"login perusahaan",Toast.LENGTH_SHORT).show();
+                            Intent intent_admin=new Intent(LoginActivity.this,TryPerofilleActivity.class);
+                            startActivity(intent_admin);
+                            finish();
+                        }else if(statusUser.equals("2")) {
                             Toast.makeText(getApplicationContext(),"login admin",Toast.LENGTH_SHORT).show();
                             Intent intent_admin=new Intent(LoginActivity.this,HomeAdminActivity.class);
                             startActivity(intent_admin);

@@ -38,6 +38,7 @@
         <activity android:name=".UpdateFotoProfille"></activity>
         <activity android:name=".DetailUserInAdminActivity"></activity>
         <activity android:name=".EditProfilleActivity"></activity>
+        <activity android:name=".profilleUserActivity"></activity>
 
         <service android:name=".Firebase.MessagingService"
             android:stopWithTask="false">

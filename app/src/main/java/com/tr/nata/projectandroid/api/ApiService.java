@@ -8,6 +8,7 @@ import com.tr.nata.projectandroid.model.ResponseDataJasaUser;
 import com.tr.nata.projectandroid.model.ResponseFavorite;
 import com.tr.nata.projectandroid.model.ResponseKategori;
 import com.tr.nata.projectandroid.model.ResponseLogin;
+import com.tr.nata.projectandroid.model.ResponsePekerjaan;
 import com.tr.nata.projectandroid.model.ResponseStoreKategori;
 import com.tr.nata.projectandroid.model.user;
 //import okhttp3.ResponseBody;
@@ -62,7 +63,7 @@ public interface ApiService {
     );
 
     @GET("showDataJasa/{id}")
-    Call<ResponseDataJasa>showDataJasaByKategori(@Path("id") int id_kategori,@Query("token") String token);
+    Call<List<ResponsePekerjaan>>showDataJasaByKategori(@Path("id") int id_kategori, @Query("token") String token);
 
     @GET("showDataJasaForAdmin/{id}")
     Call<ResponseDataJasa>showDataJasaByKategoriForAdmin(@Path("id") int id_kategori,@Query("token") String token);

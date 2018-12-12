@@ -42,6 +42,7 @@ import com.tr.nata.projectandroid.api.ApiClient;
 import com.tr.nata.projectandroid.api.ApiService;
 import com.tr.nata.projectandroid.model.DataKategoriItem;
 import com.tr.nata.projectandroid.model.ResponseKategori;
+import com.tr.nata.projectandroid.profilleUserActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,21 +84,14 @@ public class FragmentHome extends Fragment {
         SharedPreferences sharedPref = getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
         user_token = sharedPref.getString("user_token","");
 
-//        SharedPreferences sharedPref = this.getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
-//        String nama_user_login = sharedPref.getString("nama_user_login","");
-//        tv_namaUser.setText(nama_user_login);
-
         recyclerView=(RecyclerView)view.findViewById(R.id.recyclerview_kategori);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this.getActivity(),2,GridLayoutManager.VERTICAL,false));
 
-//        Button btn_logout = (Button) view.findViewById(R.id.btn_logout);
-//        Button btn_viewKategoriLokal = view.findViewById(R.id.btn_viewKategoriLokal);
-
         home_to_profille.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),TryPerofilleActivity.class);
+                Intent intent = new Intent(getActivity(),profilleUserActivity.class);
                 startActivity(intent);
 //                getActivity().finish();
             }
@@ -109,10 +103,7 @@ public class FragmentHome extends Fragment {
                 FragmentManager fm =getFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
                 FragmentFavorite ff = new FragmentFavorite();
-//                BottomNavigationView bottomNavView = (BottomNavigationView)view.findViewById(R.id.btn_nav_menu);
-//                bottomNavView.setSelectedItemId(R.id.nav_favorite);
-//                View view1=bottomNavView.findViewById(R.id.nav_favorite);
-//                view1.performClick();
+
                 ft.replace(R.id.frag_layout,ff);
                 ft.commit();
             }
@@ -124,48 +115,12 @@ public class FragmentHome extends Fragment {
                 FragmentManager fm =getFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
                 FragmentFavorite ff = new FragmentFavorite();
-//                BottomNavigationView bottomNavView = (BottomNavigationView)view.findViewById(R.id.btn_nav_menu);
-//                View view1=bottomNavView.findViewById(R.id.nav_favorite);
-//                view1.performClick();
+
                 ft.replace(R.id.frag_layout,ff);
                 ft.commit();
             }
         });
 
-//        btn_logout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Boolean login = false;
-//                SharedPreferences sharedPref = getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
-//                SharedPreferences.Editor editor = sharedPref.edit();
-//                editor.putBoolean("status_login",login);
-//                editor.putString("status_login_string", String.valueOf(login));
-//                editor.apply();
-//
-//                Intent intent = new Intent(getActivity(),MainActivity.class);
-//                startActivity(intent);
-//                getActivity().finish();
-//            }
-//        });
-//
-//        btn_viewKategoriLokal.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Cursor res = myDb.getAllData();
-//                if (res.getCount()==0){
-//                    //show message
-//                    showMessage("Eror","Nothing Found");
-//                    return;
-//                }
-//                StringBuffer buffer = new StringBuffer();
-//                while (res.moveToNext()){
-//                    buffer.append("Id : "+res.getString(0)+"\n");
-//                    buffer.append("Kategori : "+res.getString(1)+"\n");
-//                }
-//                //show all data
-//                showMessage("Data",buffer.toString());
-//            }
-//        });
         final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.fragment_home_swipe);
         swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,R.color.colorPrimaryDark,R.color.colorPrimaryLight);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -194,28 +149,6 @@ public class FragmentHome extends Fragment {
         return view;
     }
 
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        // Do something that differs the Activity's menu here
-//        super.onCreateOptionsMenu(menu, inflater);
-//    }
-
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-
-//            case R.id:
-//
-//                // Do Fragment menu item stuff here
-//                return true;
-//
-//            default:
-//                break;
-//        }
-//
-//        return false;
-//    }
 
     private boolean isConnected() {
         ConnectivityManager cm = (ConnectivityManager) this.getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
