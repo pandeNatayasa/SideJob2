@@ -46,6 +46,7 @@ public interface ApiService {
             @Field("jenis_kelamin") String jenis_kelamin,
             @Field("no_telp") String no_telp,
             @Field("tanggal_lahir")String tanggal_lahir,
+            @Field("alamat")String alamat,
             @Field("status")String status
             );
 
@@ -66,13 +67,13 @@ public interface ApiService {
     Call<List<ResponsePekerjaan>>showDataJasaByKategori(@Path("id") int id_kategori, @Query("token") String token);
 
     @GET("showDataJasaForAdmin/{id}")
-    Call<ResponseDataJasa>showDataJasaByKategoriForAdmin(@Path("id") int id_kategori,@Query("token") String token);
+    Call<List<ResponsePekerjaan>>showDataJasaByKategoriForAdmin(@Path("id") int id_kategori,@Query("token") String token);
 
     @GET("showDataJasaUser/{id}")
     Call<List<ResponsePekerjaan>>showDataJasaUser(@Path("id") int id_perusahaan,@Query("token") String token);
 
     @GET("update_status/{id}")
-    Call<ResponseDataJasaUser>updateDataJasaUser(@Path("id") int id_data_jasa,@Query("token") String token);
+    Call<ResponsePekerjaan>updateDataJasaUser(@Path("id") int id,@Query("token") String token);
 
     @FormUrlEncoded
     @POST("store_data_jasa")

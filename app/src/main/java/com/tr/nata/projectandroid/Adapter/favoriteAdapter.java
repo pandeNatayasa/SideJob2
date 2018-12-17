@@ -133,46 +133,46 @@ public class favoriteAdapter extends RecyclerView.Adapter<favoriteAdapter.ViewHo
 
         ResponseFavorite responseFavorite = responseFavorites.get(position);
 
-        DataUserItem dataUser = mydb.selectDataUser(responseFavorite.getIdUser());
-        DataJasaItem dataJasa = mydb.selectOneDatajasa(responseFavorite.getIdDataJasa());
+//        DataUserItem dataUser = mydb.selectDataUser(responseFavorite.getIdUser());
+//        DataJasaItem dataJasa = mydb.selectOneDatajasa(responseFavorite.getIdDataJasa());
 
-        holder.tv_data_user_inFavorite.setText(dataUser.getName());
-        holder.tv_data_jasa_inFavorite.setText(dataJasa.getPekerjaan());
+//        holder.tv_data_user_inFavorite.setText(dataUser.getName());
+//        holder.tv_data_jasa_inFavorite.setText(dataJasa.getPekerjaan());
 
-        holder.cardView_data_Favorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int id_data_jasa = dataJasa.getId();
-                String nama = dataUser.getName();
-                String jasa = dataJasa.getPekerjaan();
-                String gaji = dataJasa.getEstimasi_gaji().toString();
-                String usia = String.valueOf(dataJasa.getUsia());
-                String tanggal_lahir = dataUser.getTanggalLahir();
-                String no_telp = String.valueOf(dataJasa.getNoTelp()) ;
-                String email = dataJasa.getEmail();
-                String status = dataJasa.getStatus();
-                String pendidikan = dataJasa.getPengalaman_kerja();
-                String alamat = dataJasa.getAlamat();
-
-                Intent intent = new Intent(context,DetailUserInAdminActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putInt("id_data_jasa",id_data_jasa);
-                bundle.putString("nama", nama);
-                bundle.putString("jasa",jasa);
-                bundle.putString("gaji",gaji);
-                bundle.putString("usia",usia);
-                bundle.putString("tanggal_lahir",tanggal_lahir);
-                bundle.putString("no_telp",no_telp);
-                bundle.putString("email",email);
-                bundle.putString("status",status);
-                bundle.putString("pendidikan",pendidikan);
-                bundle.putString("alamat",alamat);
-
-                intent.putExtras(bundle);
-                context.startActivity(intent);
-
-            }
-        });
+//        holder.cardView_data_Favorite.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                int id_data_jasa = dataJasa.getId();
+//                String nama = dataUser.getName();
+//                String jasa = dataJasa.getPekerjaan();
+//                String gaji = dataJasa.getEstimasi_gaji().toString();
+//                String usia = String.valueOf(dataJasa.getUsia());
+//                String tanggal_lahir = dataUser.getTanggalLahir();
+//                String no_telp = String.valueOf(dataJasa.getNoTelp()) ;
+//                String email = dataJasa.getEmail();
+//                String status = dataJasa.getStatus();
+//                String pendidikan = dataJasa.getPengalaman_kerja();
+//                String alamat = dataJasa.getAlamat();
+//
+//                Intent intent = new Intent(context,DetailUserInAdminActivity.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putInt("id_data_jasa",id_data_jasa);
+//                bundle.putString("nama", nama);
+//                bundle.putString("jasa",jasa);
+//                bundle.putString("gaji",gaji);
+//                bundle.putString("usia",usia);
+//                bundle.putString("tanggal_lahir",tanggal_lahir);
+//                bundle.putString("no_telp",no_telp);
+//                bundle.putString("email",email);
+//                bundle.putString("status",status);
+//                bundle.putString("pendidikan",pendidikan);
+//                bundle.putString("alamat",alamat);
+//
+//                intent.putExtras(bundle);
+//                context.startActivity(intent);
+//
+//            }
+//        });
     }
 
     @Override

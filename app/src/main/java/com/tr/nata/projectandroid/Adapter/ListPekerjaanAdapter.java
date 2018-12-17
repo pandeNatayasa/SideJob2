@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tr.nata.projectandroid.DetailPekerjaanActivity;
 import com.tr.nata.projectandroid.DetailUserActivity;
@@ -23,8 +24,6 @@ import java.util.List;
 
 public class ListPekerjaanAdapter extends RecyclerView.Adapter<ListPekerjaanAdapter.ViewHolder> {
 
-    private List<DataJasaItem> dataJasaItems;
-    private List<DataUserItem> dataUserItems;
     private List<ResponsePekerjaan> responsePekerjaans;
     private Context context;
     private CardView listDataPekerjaan;
@@ -97,7 +96,10 @@ public class ListPekerjaanAdapter extends RecyclerView.Adapter<ListPekerjaanAdap
                 String nama_perusahaan = responsePekerjaan.getNamaPerusahaan();
                 String detail_pekerjaan = responsePekerjaan.getDetailPekerjaan();
                 String syarat_pekerjaan = responsePekerjaan.getSyaratPekerjaan();
+                String emailPerusahaan = responsePekerjaan.getEmailPerusahaan();
+                String syaratCV = responsePekerjaan.getSyaratCv();
 
+                Toast.makeText(view.getContext(),"syarat cv "+syaratCV,Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(context,DetailPekerjaanActivity.class);
 
@@ -107,8 +109,10 @@ public class ListPekerjaanAdapter extends RecyclerView.Adapter<ListPekerjaanAdap
                 bundle.putString("gaji_min",gaji_min);
                 bundle.putString("gaji_max",gaji_max);
                 bundle.putString("nama_perusahaan",nama_perusahaan);
+                bundle.putString("email_perusahaan",emailPerusahaan);
                 bundle.putString("detail_pekerjaan",detail_pekerjaan);
                 bundle.putString("syarat_pekerjaan",syarat_pekerjaan);
+                bundle.putString("syarat_cv",syaratCV);
 
                 intent.putExtras(bundle);
                 context.startActivity(intent);

@@ -112,7 +112,7 @@ public class UpdateFotoProfille extends AppCompatActivity {
                             editor.putString("user_foto_profille",response.body().getDataUser().getFoto_profille());
                             editor.apply();
 
-                            Intent intent = new Intent(getApplicationContext(),TryPerofilleActivity.class);
+                            Intent intent = new Intent(getApplicationContext(),profilleUserActivity.class);
                             startActivity(intent);
                         }else {
                             Toast.makeText(UpdateFotoProfille.this,"will be update actualy but error",Toast.LENGTH_SHORT).show();

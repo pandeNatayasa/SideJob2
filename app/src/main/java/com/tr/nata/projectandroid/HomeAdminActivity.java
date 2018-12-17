@@ -38,7 +38,7 @@ public class HomeAdminActivity extends AppCompatActivity {
 
     FloatingActionButton fab_add_kategori;
 //    Button btn_toAddKategori;
-    ImageView btn_logout;
+    ImageView btn_logout,btn_add_new_perusahaan;
     ApiService service,serviceAddKategori;
     private List<DataKategoriItem> dataKategoriItems = new ArrayList<>();
     private RecyclerView recyclerView;
@@ -61,6 +61,7 @@ public class HomeAdminActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         fab_add_kategori=findViewById(R.id.fab_add_kategori);
+        btn_add_new_perusahaan = findViewById(R.id.btn_add_new_perusahaan);
 
         service=ApiClient.getApiService();
         serviceAddKategori=ApiClient.getApiService();
@@ -85,6 +86,15 @@ public class HomeAdminActivity extends AppCompatActivity {
                                 startActivity(intent);
                             }
                         }).create().show();
+            }
+        });
+
+        btn_add_new_perusahaan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),Add_New_Company_Activity.class);
+
+                startActivity(intent);
             }
         });
 

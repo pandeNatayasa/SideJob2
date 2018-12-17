@@ -105,7 +105,7 @@ public class EditProfilleActivity extends AppCompatActivity {
                                     editor.apply();
 
 
-                                    Intent intent = new Intent(getApplicationContext(),TryPerofilleActivity.class);
+                                    Intent intent = new Intent(getApplicationContext(),profilleUserActivity.class);
                                     intent.putExtra("Fragment_id",1);
                                     startActivity(intent);
                                 }else {

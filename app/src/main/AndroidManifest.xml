@@ -43,6 +43,7 @@
         <activity android:name=".DetailPekerjaanInProfillePerusahaanActivity"></activity>
         <activity android:name=".AddNewJobByUserActivity"></activity>
         <activity android:name=".EditJobByUserActivity"></activity>
+        <activity android:name=".Add_New_Company_Activity"></activity>
 
 
         <service android:name=".Firebase.MessagingService"

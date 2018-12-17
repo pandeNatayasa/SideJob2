@@ -13,13 +13,14 @@ import com.tr.nata.projectandroid.model.DataUser;
 import com.tr.nata.projectandroid.model.DataUserItem;
 import com.tr.nata.projectandroid.model.ResponseDataJasaUser;
 import com.tr.nata.projectandroid.model.ResponseFavorite;
+import com.tr.nata.projectandroid.model.ResponsePekerjaan;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    public static final String DATABASE_NAME = "praktikum.db";
+    public static final String DATABASE_NAME = "sidejob.db";
 
     //Tabel Kategori
     public static final String TABLE_NAME_KATEGORI = "category_table";
@@ -27,18 +28,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_KATEGORI = "kategori";
 
     //Tabel Data Jasa
-    public static final String TABLE_NAME_JASA = "data_jasa_table";
-    public static final String COLUMN_ID_KATEGORI = "id_kategori";
-    public static final String COLUMN_ID_USER = "id_user";
-    public static final String COLUMN_PEKERJAAN = "pekerjaan";
-    public static final String COLUMN_ESTIMASI_GAJI="estimasi_gaji";
-    public static final String COLUMN_USIA="usia";
-    public static final String COLUMN_NO_TELP="no_telp";
-    public static final String COLUMN_EMAIL_JASA="email_jasa";
-    public static final String COLUMN_STATUS="status";
-    public static final String COLUMN_STATUS_VALIDASI="status_validasi";
-    public static final String COLUMN_ALAMAT_JASA="alamat";
-    public static final String COLUMN_PENGALAMAN_KERJA="pengalaman_kerja";
+//    public static final String TABLE_NAME_JASA = "data_jasa_table";
+//    public static final String COLUMN_ID_KATEGORI = "id_kategori";
+//    public static final String COLUMN_ID_USER = "id_user";
+//    public static final String COLUMN_PEKERJAAN = "pekerjaan";
+//    public static final String COLUMN_ESTIMASI_GAJI="estimasi_gaji";
+//    public static final String COLUMN_USIA="usia";
+//    public static final String COLUMN_NO_TELP="no_telp";
+//    public static final String COLUMN_EMAIL_JASA="email_jasa";
+//    public static final String COLUMN_STATUS="status";
+//    public static final String COLUMN_STATUS_VALIDASI="status_validasi";
+//    public static final String COLUMN_ALAMAT_JASA="alamat";
+//    public static final String COLUMN_PENGALAMAN_KERJA="pengalaman_kerja";
 
     //Tabel Data User
     public static final String TABLE_NAME_USER = "data_user_table";
@@ -56,7 +57,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //pembuatan database
     public DatabaseHelper(Context context){
-        super(context,DATABASE_NAME,null,12);
+        super(context,DATABASE_NAME,null,16);
     }
 
     //pembuatan tabel
@@ -64,20 +65,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table " + TABLE_NAME_KATEGORI + "(id integer primary key autoincrement, kategori text);");
 
-        db.execSQL("create table " + TABLE_NAME_JASA + "(" +
+        db.execSQL("create table " + ResponsePekerjaan.Entry.TABLE_NAME_PEKERJAAN + "(" +
                 DataJasaItem.Entry._ID+" integer primary key autoincrement," +
                 COLUMN_ID +" integer," +
-                COLUMN_ID_KATEGORI+" integer," +
-                COLUMN_ID_USER+" integer," +
-                COLUMN_PEKERJAAN+" text," +
-                COLUMN_ESTIMASI_GAJI+" integer," +
-                COLUMN_USIA+" integer," +
-                COLUMN_NO_TELP+" text," +
-                COLUMN_EMAIL_JASA+" text," +
-                COLUMN_STATUS+" text," +
-                COLUMN_STATUS_VALIDASI+" text," +
-                COLUMN_ALAMAT_JASA+" text," +
-                COLUMN_PENGALAMAN_KERJA+" text);");
+                ResponsePekerjaan.Entry.COLUMN_ID_KATEGORI+" integer," +
+                ResponsePekerjaan.Entry.COLUMN_ID_PERUSAHAAN+" integer," +
+                ResponsePekerjaan.Entry.COLUMN_NAMA_PERUSAHAAN+" text," +
+                ResponsePekerjaan.Entry.COLUMN_EMAIL_PERUSAHAAN+" text," +
+                ResponsePekerjaan.Entry.COLUMN_PEKERJAAN+" text,"+
+                ResponsePekerjaan.Entry.COLUMN_GAJI_MIN+" integer," +
+                ResponsePekerjaan.Entry.COLUMN_GAJI_MAX+" integer," +
+                ResponsePekerjaan.Entry.COLUMN_DETAIL_PEKERJAAN+" text,"+
+                ResponsePekerjaan.Entry.COLUMN_SYARAT_PEKERJAAN+" text,"+
+                ResponsePekerjaan.Entry.COLUMN_SYARAT_CV+" text,"+
+                ResponsePekerjaan.Entry.COLUMN_STATUS_VALIDASI+" text);");
 
         db.execSQL("create table "+TABLE_NAME_USER+"(" +
                 DataUserItem.Entry._ID+" integer primary key autoincrement," +
@@ -98,7 +99,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_KATEGORI);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_JASA);
+        db.execSQL("DROP TABLE IF EXISTS " + ResponsePekerjaan.Entry.TABLE_NAME_PEKERJAAN);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_USER);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_FAVORITE);
         onCreate(db);
@@ -195,23 +196,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //Untuk Tabel Data Jasa
-    public boolean insertDataJasa(int id,int id_kategori,int id_user,String pekerjaan,
-                                  int usia,String no_telp,String email_jasa,String status,String status_validasi,String alamat_jasa,String pengalaman_kerja,int estimasi_gaji){
+    public boolean insertPekerjaan(int id,int id_kategori,int id_perusahaan,String nama_perusahaan,
+                                  String email_perusahaan,String pekerjaan,int gaji_min,int gaji_max,
+                                   String detail_pekerjaan,String syarat_pekerjaan,String syarat_cv,
+                                   String status_validasi){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_ID,id);
-        contentValues.put(COLUMN_ID_KATEGORI,id_kategori);
-        contentValues.put(COLUMN_ID_USER,id_user);
-        contentValues.put(COLUMN_PEKERJAAN,pekerjaan);
-        contentValues.put(COLUMN_ESTIMASI_GAJI,estimasi_gaji);
-        contentValues.put(COLUMN_USIA,usia);
-        contentValues.put(COLUMN_NO_TELP,no_telp);
-        contentValues.put(COLUMN_EMAIL_JASA,email_jasa);
-        contentValues.put(COLUMN_STATUS,status);
-        contentValues.put(COLUMN_STATUS_VALIDASI,status_validasi);
-        contentValues.put(COLUMN_ALAMAT_JASA,alamat_jasa);
-        contentValues.put(COLUMN_PENGALAMAN_KERJA,pengalaman_kerja);
-        long result = db.insert(TABLE_NAME_JASA,null,contentValues);
+        contentValues.put(ResponsePekerjaan.Entry.COLUMN_ID_KATEGORI,id_kategori);
+        contentValues.put(ResponsePekerjaan.Entry.COLUMN_ID_PERUSAHAAN,id_perusahaan);
+        contentValues.put(ResponsePekerjaan.Entry.COLUMN_NAMA_PERUSAHAAN,nama_perusahaan);
+        contentValues.put(ResponsePekerjaan.Entry.COLUMN_EMAIL_PERUSAHAAN,email_perusahaan);
+        contentValues.put(ResponsePekerjaan.Entry.COLUMN_PEKERJAAN,pekerjaan);
+        contentValues.put(ResponsePekerjaan.Entry.COLUMN_GAJI_MIN,gaji_min);
+        contentValues.put(ResponsePekerjaan.Entry.COLUMN_GAJI_MAX,gaji_max);
+        contentValues.put(ResponsePekerjaan.Entry.COLUMN_DETAIL_PEKERJAAN,detail_pekerjaan);
+        contentValues.put(ResponsePekerjaan.Entry.COLUMN_SYARAT_PEKERJAAN,syarat_pekerjaan);
+        contentValues.put(ResponsePekerjaan.Entry.COLUMN_SYARAT_CV,syarat_cv);
+        contentValues.put(ResponsePekerjaan.Entry.COLUMN_STATUS_VALIDASI,status_validasi);
+//
+        long result = db.insert(ResponsePekerjaan.Entry.TABLE_NAME_PEKERJAAN,null,contentValues);
 
         if (result==-1){
             return false;
@@ -219,31 +223,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
         }
     }
-    public Cursor getAllDataJasa(){
+    public Cursor getAllDataPekerjaan(){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from "+ TABLE_NAME_JASA,null);
+        Cursor res = db.rawQuery("select * from "+ ResponsePekerjaan.Entry.TABLE_NAME_PEKERJAAN,null);
         return res;
     }
 
-    public void deleteJasa(int id){
+    public void deletePekerjaan(int id){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(DataJasaItem.Entry.TABLE_NAME_JASA,COLUMN_ID_KATEGORI+"="+id,null);
+        db.delete(ResponsePekerjaan.Entry.TABLE_NAME_PEKERJAAN,ResponsePekerjaan.Entry.COLUMN_ID_KATEGORI+"="+id,null);
     }
 
-    public void deleteJasainUser(int id){
+    public void deletePekerjaaninPerusahaan(int id){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(DataJasaItem.Entry.TABLE_NAME_JASA,COLUMN_ID_USER+"="+id,null);
+        db.delete(ResponsePekerjaan.Entry.TABLE_NAME_PEKERJAAN,ResponsePekerjaan.Entry.COLUMN_ID_PERUSAHAAN+"="+id,null);
     }
 
-    public void deleteJasaOne(int id){
+    public void deletePekerjaanOne(int id){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(DataJasaItem.Entry.TABLE_NAME_JASA,COLUMN_ID+"="+id,null);
+        db.delete(ResponsePekerjaan.Entry.TABLE_NAME_PEKERJAAN,ResponsePekerjaan.Entry.COLUMN_ID+"="+id,null);
     }
 
-    public List<ResponseDataJasaUser> selectDatajasainUser(int id_user){
-        List<ResponseDataJasaUser> dataJasaItems = new ArrayList<>();
+    public List<ResponsePekerjaan> selectPekerjaaninUser(int id_perusahaan){
+        List<ResponsePekerjaan> responsePekerjaans = new ArrayList<>();
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        String sqlQuery1="select * from " + TABLE_NAME_JASA + " where " + COLUMN_ID_USER + " = " + id_user;
+        String sqlQuery1="select * from " + ResponsePekerjaan.Entry.TABLE_NAME_PEKERJAAN + " where " + ResponsePekerjaan.Entry.COLUMN_ID_PERUSAHAAN + " = " + id_perusahaan;
 
         Cursor cursor1=sqLiteDatabase.rawQuery(sqlQuery1,null);
         int count = cursor1.getCount();
@@ -254,40 +258,48 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
             do{
 //                id_data_jasa = cursor1.getInt(cursor1.getColumnIndex(DataJasaItem.Entry.COLUMN_ID));
-                int id_user_data = cursor1.getInt(cursor1.getColumnIndex(DataJasaItem.Entry.COLUMN_ID_USER));
-                pekerjaan = cursor1.getString(cursor1.getColumnIndex(DataJasaItem.Entry.COLUMN_PEKERJAAN));
-                int estimasi_gaji = cursor1.getInt(cursor1.getColumnIndex(DataJasaItem.Entry.COLUMN_ESTIMASI_GAJI));
-                int usia = cursor1.getInt(cursor1.getColumnIndex(DataJasaItem.Entry.COLUMN_USIA));
-                String no_telp = cursor1.getString(cursor1.getColumnIndex(DataJasaItem.Entry.COLUMN_NO_TELP));
-                String email = cursor1.getString(cursor1.getColumnIndex(DataJasaItem.Entry.COLUMN_EMAIL_JASA));
-                String status = cursor1.getString(cursor1.getColumnIndex(DataJasaItem.Entry.COLUMN_STATUS));
-                String alamat = cursor1.getString(cursor1.getColumnIndex(DataJasaItem.Entry.COLUMN_ALAMAT_JASA));
-                String pengalaman_kerja = cursor1.getString(cursor1.getColumnIndex(DataJasaItem.Entry.COLUMN_PENGALAMAN_KERJA));
+                int id_perusahaan_user = cursor1.getInt(cursor1.getColumnIndex(ResponsePekerjaan.Entry.COLUMN_ID_PERUSAHAAN));
+                int id_kategori = cursor1.getInt(cursor1.getColumnIndex(ResponsePekerjaan.Entry.COLUMN_ID_KATEGORI));
+                String nama_perusahaan = cursor1.getString(cursor1.getColumnIndex(ResponsePekerjaan.Entry.COLUMN_NAMA_PERUSAHAAN));
+                String email_perusahaan = cursor1.getString(cursor1.getColumnIndex(ResponsePekerjaan.Entry.COLUMN_EMAIL_PERUSAHAAN));
 
-                ResponseDataJasaUser temp = new ResponseDataJasaUser();
-//                temp.setId(id_data_jasa);
+                pekerjaan = cursor1.getString(cursor1.getColumnIndex(ResponsePekerjaan.Entry.COLUMN_PEKERJAAN));
+                int gaji_min = cursor1.getInt(cursor1.getColumnIndex(ResponsePekerjaan.Entry.COLUMN_GAJI_MIN));
+                int gaji_max = cursor1.getInt(cursor1.getColumnIndex(ResponsePekerjaan.Entry.COLUMN_GAJI_MAX));
+
+                String detail_pekerjaan = cursor1.getString(cursor1.getColumnIndex(ResponsePekerjaan.Entry.COLUMN_DETAIL_PEKERJAAN));
+
+                String syarat_pekerjaan = cursor1.getString(cursor1.getColumnIndex(ResponsePekerjaan.Entry.COLUMN_SYARAT_PEKERJAAN));
+                String syarat_cv = cursor1.getString(cursor1.getColumnIndex(ResponsePekerjaan.Entry.COLUMN_SYARAT_CV));
+
+                String status_validasi = cursor1.getString(cursor1.getColumnIndex(ResponsePekerjaan.Entry.COLUMN_STATUS_VALIDASI));
+
+                ResponsePekerjaan temp = new ResponsePekerjaan();
+                temp.setIdKategori(id_kategori);
+                temp.setIdPerusahaan(id_perusahaan_user);
+                temp.setNamaPerusahaan(nama_perusahaan);
+                temp.setEmailPerusahaan(email_perusahaan);
                 temp.setPekerjaan(pekerjaan);
-                temp.setEstimasiGaji(estimasi_gaji);
-                temp.setIdUser(id_user_data);
-                temp.setUsia(usia);
-                temp.setNoTelp(no_telp);
-                temp.setEmail(email);
-                temp.setStatus(status);
-                temp.setAlamat(alamat);
-                temp.setPengalamanKerja(pengalaman_kerja);
-                dataJasaItems.add(temp);
+                temp.setGajiMin(gaji_min);
+                temp.setGajiMax(gaji_max);
+                temp.setDetailPekerjaan(detail_pekerjaan);
+                temp.setSyaratPekerjaan(syarat_pekerjaan);
+                temp.setSyaratCv(syarat_cv);
+                temp.setStatusValidasi(status_validasi);
+
+                responsePekerjaans.add(temp);
             }while (cursor1.moveToNext());
         }
 
         cursor1.close();
         sqLiteDatabase.close();
-        return dataJasaItems;
+        return responsePekerjaans;
     }
 
-    public List<DataJasaItem> selectDatajasa(int id_kategori){
-        List<DataJasaItem> dataJasaItems = new ArrayList<>();
+    public List<ResponsePekerjaan> selectPekerjaan(int id_kategori){
+        List<ResponsePekerjaan> responsePekerjaans = new ArrayList<>();
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        String sqlQuery1="select * from " + TABLE_NAME_JASA + " where " + COLUMN_ID_KATEGORI + " = " + id_kategori;
+        String sqlQuery1="select * from " + ResponsePekerjaan.Entry.TABLE_NAME_PEKERJAAN + " where " + ResponsePekerjaan.Entry.COLUMN_ID_KATEGORI + " = " + id_kategori;
 //        Cursor c = db.rawQuery(sqlQuery,null);
 //        Cursor cursor=sqLiteDatabase.query(DataJasaItem.Entry.TABLE_NAME_JASA,null,COLUMN_ID_KATEGORI+"="+id,null ,null, null,null);
         Cursor cursor1=sqLiteDatabase.rawQuery(sqlQuery1,null);
@@ -296,37 +308,38 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String pekerjaan= "a";
         if (count>0){
             cursor1.moveToFirst();
-//            id_data_jasa=cursor1.getInt(cursor1.getColumnIndex(DataJasaItem.Entry.COLUMN_ID));
-//            pekerjaan=cursor1.getString(cursor1.getColumnIndex(DataJasaItem.Entry.COLUMN_PEKERJAAN));
-//
-//            DataJasaItem temp = new DataJasaItem();
-//            temp.setId(id_data_jasa);
-//            temp.setPekerjaan(pekerjaan);
-//            dataJasaItems.add(temp);
-            do{
-//                id_data_jasa = cursor1.getInt(cursor1.getColumnIndex(DataJasaItem.Entry.COLUMN_ID));
-                int id_user = cursor1.getInt(cursor1.getColumnIndex(DataJasaItem.Entry.COLUMN_ID_USER));
-                pekerjaan = cursor1.getString(cursor1.getColumnIndex(DataJasaItem.Entry.COLUMN_PEKERJAAN));
-                int estimasi_gaji = cursor1.getInt(cursor1.getColumnIndex(DataJasaItem.Entry.COLUMN_ESTIMASI_GAJI));
-                int usia = cursor1.getInt(cursor1.getColumnIndex(DataJasaItem.Entry.COLUMN_USIA));
-                String no_telp = cursor1.getString(cursor1.getColumnIndex(DataJasaItem.Entry.COLUMN_NO_TELP));
-                String email = cursor1.getString(cursor1.getColumnIndex(DataJasaItem.Entry.COLUMN_EMAIL_JASA));
-                String status = cursor1.getString(cursor1.getColumnIndex(DataJasaItem.Entry.COLUMN_STATUS));
-                String alamat = cursor1.getString(cursor1.getColumnIndex(DataJasaItem.Entry.COLUMN_ALAMAT_JASA));
-                String pengalaman_kerja = cursor1.getString(cursor1.getColumnIndex(DataJasaItem.Entry.COLUMN_PENGALAMAN_KERJA));
 
-                DataJasaItem temp = new DataJasaItem();
-//                temp.setId(id_data_jasa);
+            do{
+                int id_perusahaan_user = cursor1.getInt(cursor1.getColumnIndex(ResponsePekerjaan.Entry.COLUMN_ID_PERUSAHAAN));
+                int id_kategori_user = cursor1.getInt(cursor1.getColumnIndex(ResponsePekerjaan.Entry.COLUMN_ID_KATEGORI));
+                String nama_perusahaan = cursor1.getString(cursor1.getColumnIndex(ResponsePekerjaan.Entry.COLUMN_NAMA_PERUSAHAAN));
+                String email_perusahaan = cursor1.getString(cursor1.getColumnIndex(ResponsePekerjaan.Entry.COLUMN_EMAIL_PERUSAHAAN));
+
+                pekerjaan = cursor1.getString(cursor1.getColumnIndex(ResponsePekerjaan.Entry.COLUMN_PEKERJAAN));
+                int gaji_min = cursor1.getInt(cursor1.getColumnIndex(ResponsePekerjaan.Entry.COLUMN_GAJI_MIN));
+                int gaji_max = cursor1.getInt(cursor1.getColumnIndex(ResponsePekerjaan.Entry.COLUMN_GAJI_MAX));
+
+                String detail_pekerjaan = cursor1.getString(cursor1.getColumnIndex(ResponsePekerjaan.Entry.COLUMN_DETAIL_PEKERJAAN));
+
+                String syarat_pekerjaan = cursor1.getString(cursor1.getColumnIndex(ResponsePekerjaan.Entry.COLUMN_SYARAT_PEKERJAAN));
+                String syarat_cv = cursor1.getString(cursor1.getColumnIndex(ResponsePekerjaan.Entry.COLUMN_SYARAT_CV));
+
+                String status_validasi = cursor1.getString(cursor1.getColumnIndex(ResponsePekerjaan.Entry.COLUMN_STATUS_VALIDASI));
+
+                ResponsePekerjaan temp = new ResponsePekerjaan();
+                temp.setIdKategori(id_kategori_user);
+                temp.setIdPerusahaan(id_perusahaan_user);
+                temp.setNamaPerusahaan(nama_perusahaan);
+                temp.setEmailPerusahaan(email_perusahaan);
                 temp.setPekerjaan(pekerjaan);
-                temp.setEstimasi_gaji(estimasi_gaji);
-                temp.setIdUser(id_user);
-                temp.setUsia(usia);
-                temp.setNoTelp(no_telp);
-                temp.setEmail(email);
-                temp.setStatus(status);
-                temp.setAlamat(alamat);
-                temp.setPengalaman_kerja(pengalaman_kerja);
-                dataJasaItems.add(temp);
+                temp.setGajiMin(gaji_min);
+                temp.setGajiMax(gaji_max);
+                temp.setDetailPekerjaan(detail_pekerjaan);
+                temp.setSyaratPekerjaan(syarat_pekerjaan);
+                temp.setSyaratCv(syarat_cv);
+                temp.setStatusValidasi(status_validasi);
+
+                responsePekerjaans.add(temp);
             }while (cursor1.moveToNext());
         }
 //        if (count>0){
@@ -344,62 +357,69 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 //        }
         cursor1.close();
         sqLiteDatabase.close();
-        return dataJasaItems;
+        return responsePekerjaans;
     }
 
-    public DataJasaItem selectOneDatajasa(int id_data_jasa){
+    public ResponsePekerjaan selectOneDatajasa(int id_pekerjaan){
 
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        String sqlQuery1="select * from " + TABLE_NAME_JASA + " where " + COLUMN_ID + " = " + id_data_jasa;
+        String sqlQuery1="select * from " + ResponsePekerjaan.Entry.TABLE_NAME_PEKERJAAN + " where " + ResponsePekerjaan.Entry.COLUMN_ID + " = " + id_pekerjaan;
 //        Cursor c = db.rawQuery(sqlQuery,null);
 //        Cursor cursor=sqLiteDatabase.query(DataJasaItem.Entry.TABLE_NAME_JASA,null,COLUMN_ID_KATEGORI+"="+id,null ,null, null,null);
         Cursor cursor1=sqLiteDatabase.rawQuery(sqlQuery1,null);
 
         cursor1.moveToFirst();
-        int id_user = cursor1.getInt(cursor1.getColumnIndex(DataJasaItem.Entry.COLUMN_ID_USER));
-        String pekerjaan = cursor1.getString(cursor1.getColumnIndex(DataJasaItem.Entry.COLUMN_PEKERJAAN));
-        int estimasi_gaji = cursor1.getInt(cursor1.getColumnIndex(DataJasaItem.Entry.COLUMN_ESTIMASI_GAJI));
-        int usia = cursor1.getInt(cursor1.getColumnIndex(DataJasaItem.Entry.COLUMN_USIA));
-        String no_telp = cursor1.getString(cursor1.getColumnIndex(DataJasaItem.Entry.COLUMN_NO_TELP));
-        String email = cursor1.getString(cursor1.getColumnIndex(DataJasaItem.Entry.COLUMN_EMAIL_JASA));
-        String status = cursor1.getString(cursor1.getColumnIndex(DataJasaItem.Entry.COLUMN_STATUS));
-        String alamat = cursor1.getString(cursor1.getColumnIndex(DataJasaItem.Entry.COLUMN_ALAMAT_JASA));
-        String pengalaman_kerja = cursor1.getString(cursor1.getColumnIndex(DataJasaItem.Entry.COLUMN_PENGALAMAN_KERJA));
+        int id_perusahaan_user = cursor1.getInt(cursor1.getColumnIndex(ResponsePekerjaan.Entry.COLUMN_ID_PERUSAHAAN));
+        int id_kategori_user = cursor1.getInt(cursor1.getColumnIndex(ResponsePekerjaan.Entry.COLUMN_ID_KATEGORI));
+        String nama_perusahaan = cursor1.getString(cursor1.getColumnIndex(ResponsePekerjaan.Entry.COLUMN_NAMA_PERUSAHAAN));
+        String email_perusahaan = cursor1.getString(cursor1.getColumnIndex(ResponsePekerjaan.Entry.COLUMN_EMAIL_PERUSAHAAN));
 
-        DataJasaItem temp = new DataJasaItem();
-//                temp.setId(id_data_jasa);
+        String pekerjaan = cursor1.getString(cursor1.getColumnIndex(ResponsePekerjaan.Entry.COLUMN_PEKERJAAN));
+        int gaji_min = cursor1.getInt(cursor1.getColumnIndex(ResponsePekerjaan.Entry.COLUMN_GAJI_MIN));
+        int gaji_max = cursor1.getInt(cursor1.getColumnIndex(ResponsePekerjaan.Entry.COLUMN_GAJI_MAX));
+
+        String detail_pekerjaan = cursor1.getString(cursor1.getColumnIndex(ResponsePekerjaan.Entry.COLUMN_DETAIL_PEKERJAAN));
+
+        String syarat_pekerjaan = cursor1.getString(cursor1.getColumnIndex(ResponsePekerjaan.Entry.COLUMN_SYARAT_PEKERJAAN));
+        String syarat_cv = cursor1.getString(cursor1.getColumnIndex(ResponsePekerjaan.Entry.COLUMN_SYARAT_CV));
+
+        String status_validasi = cursor1.getString(cursor1.getColumnIndex(ResponsePekerjaan.Entry.COLUMN_STATUS_VALIDASI));
+
+        ResponsePekerjaan temp = new ResponsePekerjaan();
+        temp.setIdKategori(id_kategori_user);
+        temp.setIdPerusahaan(id_perusahaan_user);
+        temp.setNamaPerusahaan(nama_perusahaan);
+        temp.setEmailPerusahaan(email_perusahaan);
         temp.setPekerjaan(pekerjaan);
-        temp.setEstimasi_gaji(estimasi_gaji);
-        temp.setIdUser(id_user);
-        temp.setUsia(usia);
-        temp.setNoTelp(no_telp);
-        temp.setEmail(email);
-        temp.setStatus(status);
-        temp.setAlamat(alamat);
-        temp.setPengalaman_kerja(pengalaman_kerja);
+        temp.setGajiMin(gaji_min);
+        temp.setGajiMax(gaji_max);
+        temp.setDetailPekerjaan(detail_pekerjaan);
+        temp.setSyaratPekerjaan(syarat_pekerjaan);
+        temp.setSyaratCv(syarat_cv);
+        temp.setStatusValidasi(status_validasi);
 
         cursor1.close();
         sqLiteDatabase.close();
         return temp;
     }
 
-    public String jumlah_data_jasa(int id_kategori){
-        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        String sqlQuery1="select * from " + TABLE_NAME_JASA + " where " + COLUMN_ID_KATEGORI + " = " + id_kategori;
-//        Cursor c = db.rawQuery(sqlQuery,null);
-//        Cursor cursor=sqLiteDatabase.query(DataJasaItem.Entry.TABLE_NAME_JASA,null,COLUMN_ID_KATEGORI+"="+id,null ,null, null,null);
-        Cursor cursor1=sqLiteDatabase.rawQuery(sqlQuery1,null);
-        int count = cursor1.getCount();
-        String data_jasa="a";
-        if (count>0) {
-            cursor1.moveToFirst();
-             data_jasa= cursor1.getString(cursor1.getColumnIndex(DataJasaItem.Entry.COLUMN_PEKERJAAN));
-        }
-//        String kategori = cursor.getString(cursor.getColumnIndex(DataKategoriItem.Entry.COLUMN_KATEGORI));
-        cursor1.close();
-        sqLiteDatabase.close();
-        return data_jasa;
-    }
+//    public String jumlah_data_jasa(int id_kategori){
+//        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+//        String sqlQuery1="select * from " + TABLE_NAME_JASA + " where " + COLUMN_ID_KATEGORI + " = " + id_kategori;
+////        Cursor c = db.rawQuery(sqlQuery,null);
+////        Cursor cursor=sqLiteDatabase.query(DataJasaItem.Entry.TABLE_NAME_JASA,null,COLUMN_ID_KATEGORI+"="+id,null ,null, null,null);
+//        Cursor cursor1=sqLiteDatabase.rawQuery(sqlQuery1,null);
+//        int count = cursor1.getCount();
+//        String data_jasa="a";
+//        if (count>0) {
+//            cursor1.moveToFirst();
+//             data_jasa= cursor1.getString(cursor1.getColumnIndex(DataJasaItem.Entry.COLUMN_PEKERJAAN));
+//        }
+////        String kategori = cursor.getString(cursor.getColumnIndex(DataKategoriItem.Entry.COLUMN_KATEGORI));
+//        cursor1.close();
+//        sqLiteDatabase.close();
+//        return data_jasa;
+//    }
 
     //Untuk Tabel Data User
     public boolean insertDataUser(int id,String name,String email,String jenis_kelamin, String no_telp,String tanggal_lahir){

@@ -1,5 +1,7 @@
 package com.tr.nata.projectandroid.model;
 
+import android.provider.BaseColumns;
+
 import com.google.gson.annotations.SerializedName;
 
 public class ResponsePekerjaan{
@@ -15,6 +17,9 @@ public class ResponsePekerjaan{
 
 	@SerializedName("nama_perusahaan")
 	private String namaPerusahaan;
+
+	@SerializedName("email_perusahaan")
+	private String emailPerusahaan;
 
 	@SerializedName("status_validasi")
 	private String statusValidasi;
@@ -73,6 +78,14 @@ public class ResponsePekerjaan{
 
 	public String getNamaPerusahaan(){
 		return namaPerusahaan;
+	}
+
+	public void setEmailPerusahaan(String emailPerusahaan){
+		this.emailPerusahaan = emailPerusahaan;
+	}
+
+	public String getEmailPerusahaan(){
+		return emailPerusahaan;
 	}
 
 	public void setStatusValidasi(String statusValidasi){
@@ -147,6 +160,23 @@ public class ResponsePekerjaan{
 		return id;
 	}
 
+
+	public static class Entry implements BaseColumns {
+		public static final String TABLE_NAME_PEKERJAAN="data_jasa_table";
+		public static final String COLUMN_ID="ID";
+		public static final String COLUMN_ID_KATEGORI="id_kategori";
+		public static final String COLUMN_ID_PERUSAHAAN="id_perusahaan";
+		public static final String COLUMN_NAMA_PERUSAHAAN="nama_perusahaan";
+		public static final String COLUMN_EMAIL_PERUSAHAAN="email_perusahaan";
+		public static final String COLUMN_PEKERJAAN="pekerjaan";
+		public static final String COLUMN_GAJI_MIN="gaji_min";
+		public static final String COLUMN_GAJI_MAX="gaji_max";
+		public static final String COLUMN_DETAIL_PEKERJAAN="detail_pekerjaan";
+		public static final String COLUMN_SYARAT_PEKERJAAN="syarat_pekerjaan";
+		public static final String COLUMN_SYARAT_CV="syarat_cv";
+		public static final String COLUMN_STATUS_VALIDASI="status_validasi";
+	}
+
 	@Override
  	public String toString(){
 		return 
@@ -154,7 +184,8 @@ public class ResponsePekerjaan{
 			"id_kategori = '" + idKategori + '\'' + 
 			",gaji_min = '" + gajiMin + '\'' + 
 			",created_at = '" + createdAt + '\'' + 
-			",nama_perusahaan = '" + namaPerusahaan + '\'' + 
+			",nama_perusahaan = '" + namaPerusahaan + '\'' +
+					",email_perusahaan = '" + emailPerusahaan + '\'' +
 			",status_validasi = '" + statusValidasi + '\'' + 
 			",syarat_pekerjaan = '" + syaratPekerjaan + '\'' + 
 			",detail pekerjaan = '" + detailPekerjaan + '\'' + 

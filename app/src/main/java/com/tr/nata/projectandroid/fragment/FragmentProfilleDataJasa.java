@@ -139,7 +139,7 @@ public class FragmentProfilleDataJasa extends Fragment {
     private void callApiLokal(){
         SharedPreferences sharedPref = this.getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
         int id_user_login = sharedPref.getInt("id_user_login", 0);
-        dataJasaUsers=mydb.selectDatajasainUser(id_user_login);
+//        dataJasaUsers=mydb.selectDatajasainUser(id_user_login);
         setAdapter();
     }
 

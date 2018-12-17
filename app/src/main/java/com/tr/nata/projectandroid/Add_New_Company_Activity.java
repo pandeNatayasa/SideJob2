@@ -20,36 +20,32 @@ import com.tr.nata.projectandroid.api.ApiClient;
 import com.tr.nata.projectandroid.api.ApiService;
 import com.tr.nata.projectandroid.model.Response;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-//import butterknife.BindView;
-//import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class AddUserActivity extends AppCompatActivity{
+public class Add_New_Company_Activity extends AppCompatActivity {
+
 
     private Button btnAdd;
-    private EditText etUserName,etUserEmail,etUserPassword,etUserJenisKelamin, etUserNoTelp, etUserTanggalLahir;
+    private EditText etUserName,etUserEmail,etUserPassword,etUserJenisKelamin, etUserNoTelp, etUserTanggalLahir,etUserAlamat;
     TextView tv_error;
     RadioGroup rgJenisKelamin;
     RadioButton rbjenis_kelamin_Laki,rbjenis_kelamin_Perempuan;
     String jk="";
-    TextView tv_login;
+//    TextView tv_login;
     private static final String TAG = "AddUserActivity";
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     ImageView imgTanggalLahir;
 
     ApiService service;
 
-    Calendar myCalendar;
-
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_user);
-        setTitle("Add User");
+        setContentView(R.layout.activity_add_new_company);
+
 
         service = ApiClient.getApiService();
 
@@ -59,13 +55,14 @@ public class AddUserActivity extends AppCompatActivity{
 //        etUserJenisKelamin=findViewById(R.id.etUserJenisKelamin);
         etUserNoTelp=findViewById(R.id.etUserNoTelp);
         etUserTanggalLahir=findViewById(R.id.etUserTanggalLahir);
-        tv_login=findViewById(R.id.tv_login);
+//        tv_login=findViewById(R.id.tv_login);
 
-        rgJenisKelamin=(RadioGroup) findViewById(R.id.rgJenisKelamin);
-        int selectedId = rgJenisKelamin.getCheckedRadioButtonId();
+//        rgJenisKelamin=(RadioGroup) findViewById(R.id.rgJenisKelamin);
+//        int selectedId = rgJenisKelamin.getCheckedRadioButtonId();
 //        rbjenis_kelamin=(RadioButton) findViewById(selectedId);
         rbjenis_kelamin_Laki=findViewById(R.id.rbLakiLaki);
         rbjenis_kelamin_Perempuan=findViewById(R.id.rbPerempuan);
+        etUserAlamat = findViewById(R.id.etUserAlamat);
 
 //        jk = rbjenis_kelamin.getText().toString();
         tv_error=findViewById(R.id.tv_error);
@@ -79,14 +76,6 @@ public class AddUserActivity extends AppCompatActivity{
             }
         });
 
-        tv_login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
-                startActivity(intent);
-            }
-        });
-
         imgTanggalLahir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,7 +85,7 @@ public class AddUserActivity extends AppCompatActivity{
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog dialog = new DatePickerDialog(
-                  AddUserActivity.this,
+                        Add_New_Company_Activity.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         mDateSetListener,
                         year,month,day
@@ -114,41 +103,43 @@ public class AddUserActivity extends AppCompatActivity{
                 etUserTanggalLahir.setText(date);
             }
         };
-    }
 
+    }
     private void addUser(){
         String name = etUserName.getText().toString();
         String email = etUserEmail.getText().toString();
         String password = etUserPassword.getText().toString();
         String jenis_kelamin;
-        if (rbjenis_kelamin_Laki.isChecked()){
-            jenis_kelamin = "L";
-        }else{
-            jenis_kelamin = "P";
-        }
+        String alamat = etUserAlamat.getText().toString();
+//        if (rbjenis_kelamin_Laki.isChecked()){
+//            jenis_kelamin = "L";
+//        }else{
+//            jenis_kelamin = "P";
+//        }
+
+        jenis_kelamin = "L";
         String no_telp=etUserNoTelp.getText().toString();
         String tanggal_lahir=etUserTanggalLahir.getText().toString();
-        String status = String.valueOf("0");
-        String alamat = "";
+        String status = String.valueOf("1");
 
         service.addUser(name,email,password,jenis_kelamin,no_telp,tanggal_lahir,alamat,status)
                 .enqueue(new Callback<Response>() {
                     @Override
                     public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
                         if (response.isSuccessful()) {
-                            Toast.makeText(AddUserActivity.this,"Success",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Add_New_Company_Activity.this,"Success",Toast.LENGTH_SHORT).show();
 
-                            Intent intent =new Intent(AddUserActivity.this,LoginActivity.class);
+                            Intent intent =new Intent(Add_New_Company_Activity.this,HomeAdminActivity.class);
                             startActivity(intent);
 
                         }else {
-                            Toast.makeText(AddUserActivity.this,"Register Failed",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Add_New_Company_Activity.this,"Register Failed",Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<Response> call, Throwable t) {
-                        Toast.makeText(AddUserActivity.this,"Error Koneksi"+t,Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Add_New_Company_Activity.this,"Error Koneksi"+t,Toast.LENGTH_SHORT).show();
                         tv_error.setText("eror : "+t);
                     }
                 });

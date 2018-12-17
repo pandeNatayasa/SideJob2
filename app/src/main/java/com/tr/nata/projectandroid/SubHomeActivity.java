@@ -115,7 +115,7 @@ public class SubHomeActivity extends AppCompatActivity {
         });
 
         callApi();
-//        callDataLokal();
+        callDataLokal();
 //        callJumlahDataJasaLokal();
 
     }
@@ -127,19 +127,19 @@ public class SubHomeActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<List<ResponsePekerjaan>> call, Response<List<ResponsePekerjaan>> response) {
                         if (response.isSuccessful()) {
-                            responsePekerjaans=response.body();
+
 //                            Toast.makeText(getApplicationContext(), "success beb", Toast.LENGTH_SHORT).show();
                             if (response.body().size() > 0) {
 //                                Toast.makeText(getApplicationContext(), "jumlah data jasa " + response.body().getDataJasa().size(), Toast.LENGTH_SHORT).show();
 //                                Toast.makeText(getApplicationContext(), "jumlah user " + response.body().getDataUser().size(), Toast.LENGTH_SHORT).show();
 
-//                                myDb.deleteJasa(id_kategori);
-//
+                                myDb.deletePekerjaan(id_kategori);
+                                responsePekerjaans=response.body();
 //                                dataJasaItems = response.body().getDataJasa();
 //                                dataUserItems = response.body().getDataUser();
 //
-//                                for (DataUserItem dataUserItem:dataUserItems){
-//                                    myDb.deleteUser(dataUserItem.getId());
+//                                for (ResponsePekerjaan responsePekerjaan:responsePekerjaans){
+//                                    myDb.deletePekerjaan(responsePekerjaan.getId());
 //                                }
 //                                for (DataUserItem dataUserItem:dataUserItems){
 //                                    myDb.insertDataUser(dataUserItem.getId(),dataUserItem.getName(),dataUserItem.getEmail(),dataUserItem.getJenisKelamin(),
@@ -147,12 +147,12 @@ public class SubHomeActivity extends AppCompatActivity {
 //
 //                                }
 ////                                Toast.makeText(getApplicationContext(), "pengalaman kerja : " + dataJasaItems.get(0).getPengalaman_kerja(), Toast.LENGTH_SHORT).show();
-//                                for (DataJasaItem dataJasaItem:dataJasaItems){
-//                                    boolean hasil = myDb.insertDataJasa(dataJasaItem.getId(),dataJasaItem.getIdKategori(),dataJasaItem.getIdUser(),
-//                                            dataJasaItem.getPekerjaan(),dataJasaItem.getUsia(),dataJasaItem.getNoTelp(),dataJasaItem.getEmail(),
-//                                            dataJasaItem.getStatus(),dataJasaItem.getStatusValidasi(),dataJasaItem.getAlamat(),dataJasaItem.getPengalaman_kerja(),dataJasaItem.getEstimasi_gaji());
-////                                    Toast.makeText(getApplicationContext(), "hasil " + hasil, Toast.LENGTH_SHORT).show();
-//                                }
+                                for (ResponsePekerjaan responsePekerjaan:responsePekerjaans){
+                                    boolean hasil = myDb.insertPekerjaan(responsePekerjaan.getId(),responsePekerjaan.getIdKategori(),responsePekerjaan.getIdPerusahaan(),responsePekerjaan.getNamaPerusahaan(),
+                                            responsePekerjaan.getEmailPerusahaan(),responsePekerjaan.getPekerjaan(),responsePekerjaan.getGajiMin(),responsePekerjaan.getGajiMax(),responsePekerjaan.getDetailPekerjaan(),
+                                            responsePekerjaan.getSyaratPekerjaan(),responsePekerjaan.getSyaratCv(),responsePekerjaan.getStatusValidasi());
+                                    Toast.makeText(getApplicationContext(), "hasil " + hasil, Toast.LENGTH_SHORT).show();
+                                }
                                 setAdapter();
                             } else {
                                 tv_pesan.setText("Data kosong");
@@ -178,41 +178,13 @@ public class SubHomeActivity extends AppCompatActivity {
     }
     private void callJumlahDataJasaLokal(){
         int id_kategori = bundle.getInt("id_kategori");
-        String jumlah  = myDb.jumlah_data_jasa(id_kategori);
+//        String jumlah  = myDb.jumlah_data_jasa(id_kategori);
 //        Toast.makeText(getApplicationContext(),"jumlah data jasa di SQLite:"+String.valueOf( jumlah),Toast.LENGTH_SHORT).show();
     }
 
     private void callDataLokal(){
         int id_kategori = bundle.getInt("id_kategori");
-        dataJasaItems=myDb.selectDatajasa(id_kategori);
-        for (DataJasaItem dataJasaItem:dataJasaItems){
-//            Toast.makeText(getApplicationContext(),"pekerjaan : "+dataJasaItem.getPekerjaan(),Toast.LENGTH_SHORT).show();
-        }
-
-        for (DataJasaItem dataJasaItem:dataJasaItems){
-            Cursor curDataUser = myDb.getDataUser(dataJasaItem.getIdUser());
-            int count = curDataUser.getCount();
-            if (count>0){
-                while (curDataUser.moveToNext()){
-//                    int id = curDataUser.getInt(curDataUser.getColumnIndex(DataUserItem.Entry.COLUMN_ID));
-                    String name = curDataUser.getString(curDataUser.getColumnIndex(DataUserItem.Entry.COLUMN_NAME_USER));
-                    String email = curDataUser.getString(curDataUser.getColumnIndex(DataUserItem.Entry.COLUMN_EMAIL_USER));
-                    String jk = curDataUser.getString(curDataUser.getColumnIndex(DataUserItem.Entry.COLUMN_JK_USER));
-                    String no_telp = curDataUser.getString(curDataUser.getColumnIndex(DataUserItem.Entry.COLUMN_NO_TELP_USER));
-                    String tanggal_lahir = curDataUser.getString(curDataUser.getColumnIndex(DataUserItem.Entry.COLUMN_TANGGAL_LAHIR_USER));
-
-                    DataUserItem temp = new DataUserItem();
-//                    temp.setId(id);
-                    temp.setName(name);
-                    temp.setEmail(email);
-                    temp.setJenisKelamin(jk);
-                    temp.setNoTelp(no_telp);
-                    temp.setTanggalLahir(tanggal_lahir);
-                    dataUserItems.add(temp);
-                }
-            }
-            curDataUser.close();
-        }
+        responsePekerjaans=myDb.selectPekerjaan(id_kategori);
         setAdapter();
     }
 

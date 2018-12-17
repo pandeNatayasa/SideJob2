@@ -19,7 +19,7 @@ import android.widget.Toast;
 
 
 import com.tr.nata.projectandroid.Adapter.ListDataJasaInUserAdapter;
-import com.tr.nata.projectandroid.Adapter.dataJasaAdminAdapter;
+import com.tr.nata.projectandroid.Adapter.ListPekerjaanAdminAdapter;
 import com.tr.nata.projectandroid.Database.DatabaseHelper;
 import com.tr.nata.projectandroid.api.ApiClient;
 import com.tr.nata.projectandroid.api.ApiService;
@@ -27,6 +27,7 @@ import com.tr.nata.projectandroid.model.DataJasaItem;
 import com.tr.nata.projectandroid.model.DataUserItem;
 import com.tr.nata.projectandroid.model.ResponseDataJasa;
 import com.tr.nata.projectandroid.model.ResponseDataJasaUser;
+import com.tr.nata.projectandroid.model.ResponsePekerjaan;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,10 +41,10 @@ public class AdminListFreeLanceActivity extends AppCompatActivity {
 //    FloatingActionButton fab_add_job;
     private RecyclerView recyclerView;
     private Bundle bundle;
-    private dataJasaAdminAdapter dataJasaAdapter;
     DatabaseHelper myDb;
     TextView tv_pesan,tv_nama_kategori;
     String user_token;
+    private ListPekerjaanAdminAdapter listPekerjaanAdminAdapter;
 
     AlertDialog.Builder dialog;
     LayoutInflater inflater_add_new;
@@ -53,6 +54,7 @@ public class AdminListFreeLanceActivity extends AppCompatActivity {
 
     private List<DataJasaItem> dataJasaItems = new ArrayList<>();
     private List<DataUserItem> dataUserItems=new ArrayList<>();
+    public List<ResponsePekerjaan> responsePekerjaans = new ArrayList<>();
 
     ApiService service,service_add_new;
 
@@ -149,14 +151,15 @@ public class AdminListFreeLanceActivity extends AppCompatActivity {
         int id_kategori = bundle.getInt("id_kategori");
         Toast.makeText(this,"id kategori :"+String.valueOf(id_kategori),Toast.LENGTH_SHORT).show();
         service.showDataJasaByKategoriForAdmin(id_kategori,user_token)
-                .enqueue(new Callback<ResponseDataJasa>() {
+                .enqueue(new Callback<List<ResponsePekerjaan>>() {
                     @Override
-                    public void onResponse(Call<ResponseDataJasa> call, Response<ResponseDataJasa> response) {
+                    public void onResponse(Call<List<ResponsePekerjaan>> call, Response<List<ResponsePekerjaan>> response) {
+                        Toast.makeText(getApplicationContext(), "success beb admin", Toast.LENGTH_SHORT).show();
                         if (response.isSuccessful()) {
                             Toast.makeText(getApplicationContext(), "success beb admin", Toast.LENGTH_SHORT).show();
-                            if (response.body().getDataJasa().size() > 0) {
-                                dataJasaItems = response.body().getDataJasa();
-                                dataUserItems = response.body().getDataUser();
+                            if (response.body().size() > 0) {
+                                Toast.makeText(AdminListFreeLanceActivity.this,"jumlah pekerjaan :"+String.valueOf(response.body().size()),Toast.LENGTH_SHORT).show();
+                                responsePekerjaans=response.body();
                                 setAdapter();
 
                             }else {
@@ -168,15 +171,17 @@ public class AdminListFreeLanceActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<ResponseDataJasa> call, Throwable t) {
-
+                    public void onFailure(Call<List<ResponsePekerjaan>> call, Throwable t) {
+                        Toast.makeText(getApplicationContext(), "error : "+t, Toast.LENGTH_SHORT).show();
+                        tv_pesan.setText("error : "+t);
                     }
                 });
     }
 
     private void setAdapter(){
-        dataJasaAdapter = new dataJasaAdminAdapter(this,dataJasaItems,dataUserItems);
-        recyclerView.setAdapter(dataJasaAdapter);
+//        dataJasaAdapter = new dataJasaAdminAdapter(this,dataJasaItems,dataUserItems);
+        listPekerjaanAdminAdapter = new ListPekerjaanAdminAdapter(responsePekerjaans,this);
+        recyclerView.setAdapter(listPekerjaanAdminAdapter);
     }
 
 //    private void callApiAddNew(){
